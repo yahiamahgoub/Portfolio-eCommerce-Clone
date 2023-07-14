@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:eCommerceClone.ViewModels"             
+             xmlns:model="clr-namespace:DataLib.Models;assembly=DataLib"
+             xmlns:conv="clr-namespace:eCommerceClone.Converters"
+             x:Class="eCommerceClone.Views.NewItemPage"
+             Title="NewItemPage"
+             x:DataType="vm:NewItemPageViewModel"
+             >
+    <ContentPage.Resources>
+        <conv:StatusToColorConverter x:Key="statusToColorConverter"/>
+        <conv:ByteArrayToImageSourceConverter x:Key="byteArrayToImageSourceConverter"/>
+        <conv:ImageByteListToImageListConverter x:Key="imageByteListToImageListConverter"/>
+
+        <!--<Style x:Key="labelStyle" TargetType="Label">
+            <Setter Property="HorizontalOptions" Value="Center" />
+            <Setter Property="VerticalOptions" Value="Center" />
+            <Setter Property="FontSize" Value="18" />
+        </Style>-->
+    </ContentPage.Resources>
+    <Grid Margin="13" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto, Auto" RowSpacing="10">
+
+        <HorizontalStackLayout BackgroundColor="Red" Grid.Row="0">
+            <Label Grid.Row="1" Text="{Binding User.Name, Mode=OneWay}" Margin="0,0,5,0"/>
+            <Label Grid.Row="2" Text="{Binding User, Mode=OneWay}"/>
+        </HorizontalStackLayout>
+        
+        <Picker x:Name="picker" Grid.Row="1"
+        Title="Select a category" ItemsSource="{Binding Categories}" ItemDisplayBinding="{Binding Name}" SelectedItem="{Binding SelectedCategory}">
+            <!--<Picker.ItemsSource>
+                <x:Array Type="{x:Type x:String}">
+                    <x:String>Baboon</x:String>
+                    <x:String>Capuchin Monkey</x:String>
+                    <x:String>Blue Monkey</x:String>
+                    <x:String>Squirrel Monkey</x:String>
+                    <x:String>Golden Lion Tamarin</x:String>
+                    <x:String>Howler Monkey</x:String>
+                    <x:String>Japanese Macaque</x:String>
+                </x:Array>
+            </Picker.ItemsSource>-->
+        </Picker>
+
+        
+
+        <!--<ListView ItemsSource="{Binding AddressList}" SelectedItem="{Binding SelectedAddress}" Grid.Row="3">
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="{x:Type model:Address}">
+                    <HorizontalStackLayout>
+                        <Label Text="{Binding AddressLine, StringFormat='{0},'}" Margin="0,0,5,0"/>
+                        <Label Text="{Binding City, StringFormat='{0},'}" Margin="0,0,5,0"/>
+                        <Label Text="{Binding Country.CountryName, StringFormat='{0}.'}"/>
+                    </HorizontalStackLayout>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>-->
+
+
+        <Picker ItemsSource="{Binding AddressList}" ItemDisplayBinding="{Binding FullAddress}" SelectedItem="{Binding SelectedAddress}" Grid.Row="2"/>
+
+
+        <Entry Grid.Row="3" Placeholder="Item Name" Text="{Binding ItemName}"/>
+        <Entry Grid.Row="4" Placeholder="Item Description" Text="{Binding ItemDescription}"/>
+        <HorizontalStackLayout Grid.Row="5">
+            <Entry Placeholder="Enter Price" Text="{Binding ItemPrice}"/>
+            <Label Text="SEK" VerticalOptions="Center"/>
+        </HorizontalStackLayout>
+
+        <HorizontalStackLayout Grid.Row="6">
+            <Button Text="Upload pic" Command="{Binding SnapPhotoCommand}"/>
+            <Image Source="{Binding Image, Converter={x:StaticResource byteArrayToImageSourceConverter}, Mode=OneWay}" HeightRequest="30" BackgroundColor="Yellow"/>
+            <Image Source="dotnet_bot.png"/>
+            <!--<ScrollView FlowDirection="LeftToRight">
+                <CollectionView FlowDirection="LeftToRight" ItemsSource="{Binding ImageList, Converter={x:StaticResource imageByteListToImageListConverter}, Mode=OneWay}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <HorizontalStackLayout>
+                                <Image Source="{Binding}"/>
+                            </HorizontalStackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </ScrollView>-->
+        </HorizontalStackLayout>
+
+        
+        <Button Text="Add" VerticalOptions="CenterAndExpand" Grid.Row="8" Command="{Binding SaveItemCommand}"/>
+
+        <!--<Label 
+            Text="Welcome to .NET MAUI!"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />-->
+    </Grid>
+</ContentPage>

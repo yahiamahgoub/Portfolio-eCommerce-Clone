@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="eCommerceClone.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:eCommerceClone"
+    xmlns:views="clr-namespace:eCommerceClone.Views"
+    Shell.FlyoutBehavior="Flyout">
+
+    <FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
+        <Tab Title="Listings Page">
+            <ShellContent Title="ListingsPage" ContentTemplate="{DataTemplate views:ListingsPage}" Route="MainPage" />
+        </Tab>
+
+        <Tab Title="Add Item">
+            <ShellContent
+        Title="New Page"
+        ContentTemplate="{DataTemplate views:NewItemPage}"
+        Route="MainPage" />
+        </Tab>
+
+        <Tab Title="Home">
+            <ShellContent
+        Title="MainPage(Home)"
+        ContentTemplate="{DataTemplate local:MainPage}"
+        Route="MainPage" />
+        </Tab>
+    </FlyoutItem>
+   
+
+    <MenuItem Text="Choose Language"/>
+    <MenuItem Text="Rate App"/>
+    <MenuItem Text="About App"/>
+    <!--<MenuItem Text="Help" IconImageSource="" Command="" CommandParameter=""/>-->
+
+</Shell>
