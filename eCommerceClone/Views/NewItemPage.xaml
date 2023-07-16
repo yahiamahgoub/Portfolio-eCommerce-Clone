@@ -21,9 +21,9 @@
     </ContentPage.Resources>
     <Grid Margin="13" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto, Auto" RowSpacing="10">
 
-        <HorizontalStackLayout BackgroundColor="Red" Grid.Row="0">
-            <Label Grid.Row="1" Text="{Binding User.Name, Mode=OneWay}" Margin="0,0,5,0"/>
-            <Label Grid.Row="2" Text="{Binding User, Mode=OneWay}"/>
+        <HorizontalStackLayout Grid.Row="0">
+            <Label Grid.Row="1" Text="{Binding User.Name, Mode=OneWay}" Margin="0,0,5,0" FontSize="Medium"/>
+            <Label Grid.Row="2" Text="{Binding User.PhoneNumber, Mode=OneWay}" FontSize="Medium"/>
         </HorizontalStackLayout>
         
         <Picker x:Name="picker" Grid.Row="1"
@@ -56,10 +56,9 @@
         </ListView>-->
 
 
-        <Picker ItemsSource="{Binding AddressList}" ItemDisplayBinding="{Binding FullAddress}" SelectedItem="{Binding SelectedAddress}" Grid.Row="2"/>
+        <Picker  Title="Pick address" ItemsSource="{Binding AddressList}" ItemDisplayBinding="{Binding FullAddress}" SelectedItem="{Binding SelectedAddress}" Grid.Row="2"/>
 
-
-        <Entry Grid.Row="3" Placeholder="Item Name" Text="{Binding ItemName}"/>
+        <Entry Grid.Row="3" Placeholder="Item Name" Text="{Binding ItemName}" IsSpellCheckEnabled="True"/>
         <Entry Grid.Row="4" Placeholder="Item Description" Text="{Binding ItemDescription}"/>
         <HorizontalStackLayout Grid.Row="5">
             <Entry Placeholder="Enter Price" Text="{Binding ItemPrice}"/>
@@ -67,7 +66,7 @@
         </HorizontalStackLayout>
 
         <HorizontalStackLayout Grid.Row="6">
-            <Button Text="Upload pic" Command="{Binding SnapPhotoCommand}"/>
+            <ImageButton Source="icon_snap.png" Command="{Binding SnapPhotoCommand}" HeightRequest="100" WidthRequest="90"/>
             <Image Source="{Binding Image, Converter={x:StaticResource byteArrayToImageSourceConverter}, Mode=OneWay}" HeightRequest="30" BackgroundColor="Yellow"/>
             <Image Source="dotnet_bot.png"/>
             <!--<ScrollView FlowDirection="LeftToRight">
@@ -83,7 +82,16 @@
             </ScrollView>-->
         </HorizontalStackLayout>
 
-        
+
+        <!--<Border Stroke="red" Grid.Row="7"
+        StrokeThickness="1"
+        Padding="16,8"
+        HorizontalOptions="Center">
+            <Entry Text=".NET MAUI"           
+           FontSize="18"
+           FontAttributes="Bold" />
+        </Border>-->
+
         <Button Text="Add" VerticalOptions="CenterAndExpand" Grid.Row="8" Command="{Binding SaveItemCommand}"/>
 
         <!--<Label 
