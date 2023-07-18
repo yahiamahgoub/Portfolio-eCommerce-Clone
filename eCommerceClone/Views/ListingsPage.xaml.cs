@@ -17,11 +17,4 @@ public partial class ListingsPage : ContentPage
 		if (vm.ItemsMini.Count == 0)
 			await vm.RefreshCommand.ExecuteAsync(null);
 	}
-
-
-	private void Button_Clicked(object sender, EventArgs e)
-	{
-		var list = collection.ItemsSource;
-		return;
-	}
 }

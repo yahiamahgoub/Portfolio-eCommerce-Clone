@@ -54,6 +54,21 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Resources\Images\icon_about.png" />
+	  <None Remove="Resources\Images\icon_add.png" />
+	  <None Remove="Resources\Images\icon_delete.png" />
+	  <None Remove="Resources\Images\icon_edit.png" />
+	  <None Remove="Resources\Images\icon_emptyheart.svg" />
+	  <None Remove="Resources\Images\icon_femaleseller.jpg" />
+	  <None Remove="Resources\Images\icon_fullheart.svg" />
+	  <None Remove="Resources\Images\icon_language.png" />
+	  <None Remove="Resources\Images\icon_listings.png" />
+	  <None Remove="Resources\Images\icon_phone.svg" />
+	  <None Remove="Resources\Images\icon_rate.png" />
+	  <None Remove="Resources\Images\icon_seller.jpg" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<PackageReference Include="CommunityToolkit.Maui" Version="5.2.0" />
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.0" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.8">

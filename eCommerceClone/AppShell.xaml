@@ -8,29 +8,30 @@
     Shell.FlyoutBehavior="Flyout">
 
     <FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
-        <Tab Title="Listings Page">
-            <ShellContent Title="ListingsPage" ContentTemplate="{DataTemplate views:ListingsPage}" Route="MainPage" />
+        
+        <Tab Title="Listings Page" Icon="icon_listings.png">
+            <ShellContent Icon="icon_listings.png" Title="ListingsPage" ContentTemplate="{DataTemplate views:ListingsPage}" Route="MainPage" />
         </Tab>
 
-        <Tab Title="Add Item">
-            <ShellContent
+        <Tab Title="Add Item" Icon="icon_add.png">
+            <ShellContent Icon="icon_add.png"
         Title="New Page"
         ContentTemplate="{DataTemplate views:NewItemPage}"
         Route="MainPage" />
         </Tab>
-
-        <Tab Title="Home">
+        
+        <!--<Tab Title="Home">
             <ShellContent
         Title="MainPage(Home)"
         ContentTemplate="{DataTemplate local:MainPage}"
         Route="MainPage" />
-        </Tab>
+        </Tab>-->
     </FlyoutItem>
    
 
-    <MenuItem Text="Choose Language"/>
-    <MenuItem Text="Rate App"/>
-    <MenuItem Text="About App"/>
+    <MenuItem Text="Choose Language" IconImageSource="icon_language.png"/>
+    <MenuItem Text="Rate App" IconImageSource="icon_rate.png"/>
+    <MenuItem Text="About App" IconImageSource="icon_about.png"/>
     <!--<MenuItem Text="Help" IconImageSource="" Command="" CommandParameter=""/>-->
 
 </Shell>

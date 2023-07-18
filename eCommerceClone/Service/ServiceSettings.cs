@@ -53,6 +53,7 @@
 					return "http://192.168.137.135:7071";
 					//return "https://192.168.137.135:44361";
 				}
+				//return "http://192.168.137.135:7071";
 				return "http://localhost:7071";
 			}
 		}

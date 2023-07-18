@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using DataLib.Models;
 using eCommerceClone.Service;
+using Microsoft.Maui.Controls;
 using MvvmHelpers;
 using System;
 using System.Collections.Generic;
@@ -26,6 +27,9 @@ namespace eCommerceClone.ViewModels
 			this.addressService = addressService;
 			this.userService = userService;
 			this.itemService = itemService;
+
+			ImageByteList = new ObservableRangeCollection<byte[]>();
+			//ImageList = new ObservableRangeCollection<Microsoft.Maui.Controls.Image>();
 		}
 
 		[ObservableProperty]
@@ -33,7 +37,11 @@ namespace eCommerceClone.ViewModels
 
 		public ObservableRangeCollection<Address> AddressList { get; set; } = new ObservableRangeCollection<Address>();
 
-		//public ObservableRangeCollection<byte[]> ImageList { get; set; } = new ObservableRangeCollection<byte[]>();
+		[ObservableProperty]
+		//[NotifyPropertyChangedFor(nameof(ImageList))]
+		ObservableRangeCollection<byte[]> imageByteList;
+	
+
 		[ObservableProperty]
 		byte[] image;
 
@@ -80,12 +88,13 @@ namespace eCommerceClone.ViewModels
 			var cats = await categoryService.GetCategories();
 			Categories.Clear();
 			Categories.AddRange(cats);
+			SelectedCategory = Categories.FirstOrDefault();
 		}
 
 		[RelayCommand]
 		public async Task LoadAddressesForUser()
 		{			
-			var initList = await addressService.GetAddressesForUser(user.UserId);
+			var initList = await addressService.GetAddressesForUser(User.UserId);
 			AddressList.Clear();
 			AddressList.AddRange(initList);
 			SelectedAddress = AddressList.FirstOrDefault();
@@ -95,21 +104,64 @@ namespace eCommerceClone.ViewModels
 		public async Task LoadUser()
 		{
 			//change later to load from login form			
-			user = await userService.GetUserAsync(1);
+			User = await userService.GetUserAsync(1);
 		}
+
+		[RelayCommand]
+		public async Task RemoveImage()
+		{
+			
+		}
+
+
+		//public async Task<FileResult> CaptureAsync(MediaPickerOptions options, bool photo)
+		//{
+		//	var captureUi = new CameraCaptureUI(options);
+
+		//	var file = await captureUi.CaptureFileAsync(photo ? CameraCaptureUIMode.Photo : CameraCaptureUIMode.Video);
+
+		//	if (file != null)
+		//		return new FileResult(file.Path, file.ContentType);
+
+		//	return null;
+		//}
 
 		[RelayCommand]
 		public async Task SnapPhoto()
 		{
 			if (MediaPicker.Default.IsCaptureSupported)
 			{
-				FileResult photo = await MediaPicker.Default.CapturePhotoAsync();
+				FileResult photo = await MediaPicker.Default.PickPhotoAsync();
 
-				using (var imgStream = await photo.OpenReadAsync())
-				{
-					var streamReader = new StreamReader(imgStream);
-					Image = System.Text.Encoding.UTF8.GetBytes(streamReader.ReadToEnd());					
-				}
+				//using (var imgStream = await photo.OpenReadAsync())
+				//{
+
+					// Load file meta data with FileInfo
+					FileInfo fileInfo = new FileInfo(photo.FullPath);
+
+					// The byte[] to save the data in
+					byte[] data = new byte[fileInfo.Length];
+
+					// Load a filestream and put its content into the byte[]
+					using (FileStream fs = fileInfo.OpenRead())
+					{
+						fs.Read(data, 0, data.Length);
+					}
+				ImageByteList.Add(data);
+				Image = data;
+
+					// Delete the temporary file
+					//fileInfo.Delete();
+
+					// Post byte[] to database
+
+					//var streamReader = new StreamReader(imgStream);
+					//while (streamReader.Peek() != 0)
+					//{
+					//	streamReader.readby
+					//}
+					//Image = System.Text.Encoding.UTF8.GetBytes(streamReader.ReadToEnd());					
+				//}
 				//if (photo != null)
 				//{
 				//	// save the file into local storage
@@ -137,15 +189,22 @@ namespace eCommerceClone.ViewModels
 				UserId = User.UserId,				
 				AddressId = SelectedAddress.AddressId,
 				CategoryId = SelectedCategory.CategoryId,
-				ItemPhotos = GetImages()
+				ImageList = GetImages()
 			};
 			await itemService.AddItemAsync(itemForAdd);
 		}
 
 		List<DataLib.Models.Image> GetImages()
 		{
-			return new List<DataLib.Models.Image>() { new DataLib.Models.Image { ImageBytes = Image, IsMainImage = true } };
-			//return ImageList.Select(imgByte => new DataLib.Models.Image { ImageBytes = imgByte}).ToList();
+			if (ImageByteList.Count == 0)
+				return new List<DataLib.Models.Image>();
+
+			if (ImageByteList.Count == 1)
+				return new List<DataLib.Models.Image>() { new DataLib.Models.Image { ImageBytes = Image, IsMainImage = true } };
+
+			var list = ImageByteList.Select(imgByte => new DataLib.Models.Image { ImageBytes = imgByte }).ToList();
+			list.FirstOrDefault().IsMainImage = true;
+			return list;						
 		}
 	}
 }

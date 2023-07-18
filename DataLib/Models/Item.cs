@@ -72,7 +72,7 @@ namespace DataLib.Models
         public int CategoryId { get; set; }
         public int? AddressId { get; set; }
         public Address? Address { get; set; }
-        public ICollection<Image> ItemPhotos { get; set; } = new List<Image>();
+        public ICollection<Image> ImageList { get; set; } = new List<Image>();
     }
 
     public class ItemForUpdate : ItemBase
@@ -84,6 +84,6 @@ namespace DataLib.Models
         public int CategoryId { get; set; }
         public int? AddressId { get; set; }
         public Address? Address { get; set; }
-        public ICollection<Image> ItemPhotos { get; set; } = new List<Image>();
+        public ICollection<Image> ImageList { get; set; } = new List<Image>();
     }
 }

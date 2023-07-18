@@ -19,15 +19,25 @@
             <Setter Property="FontSize" Value="18" />
         </Style>-->
     </ContentPage.Resources>
-    <Grid Margin="13" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto, Auto" RowSpacing="10">
+    <Grid Margin="13" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto, Auto" RowSpacing="10" Padding="15">
+        <ImageButton Source="icon_edit.png" WidthRequest="20" HorizontalOptions="End"/>
 
-        <HorizontalStackLayout Grid.Row="0">
-            <Label Grid.Row="1" Text="{Binding User.Name, Mode=OneWay}" Margin="0,0,5,0" FontSize="Medium"/>
-            <Label Grid.Row="2" Text="{Binding User.PhoneNumber, Mode=OneWay}" FontSize="Medium"/>
-        </HorizontalStackLayout>
-        
+        <!--bio card design-->
+        <Frame>
+            <Grid Grid.Row="0" ColumnDefinitions="auto, *" RowDefinitions="auto, auto" ColumnSpacing="10">
+                <Frame CornerRadius="100" IsClippedToBounds="True" HeightRequest="100" Padding="0" Grid.RowSpan="2" Grid.Column="0" WidthRequest="100">
+                    <Image Source="icon_femaleseller.jpg" HorizontalOptions="Center" VerticalOptions="Center"/>
+                </Frame>
+                <Label Grid.Column="1" Text="{Binding User.Name}" Margin="10,0,5,0" FontSize="Medium" FontAttributes="Bold"/>
+                <HorizontalStackLayout Grid.Column="1" Grid.Row="1">
+                    <Image Source="icon_phone.png" WidthRequest="30" Margin="0,0,10,0"/>
+                    <Label Text="{Binding User.PhoneNumber}" FontSize="Medium"/>
+                </HorizontalStackLayout>
+            </Grid>
+        </Frame>
+
         <Picker x:Name="picker" Grid.Row="1"
-        Title="Select a category" ItemsSource="{Binding Categories}" ItemDisplayBinding="{Binding Name}" SelectedItem="{Binding SelectedCategory}">
+        Title="Select a category" ItemsSource="{Binding Categories}" ItemDisplayBinding="{Binding Name}" SelectedItem="{Binding SelectedCategory, Mode=TwoWay}">
             <!--<Picker.ItemsSource>
                 <x:Array Type="{x:Type x:String}">
                     <x:String>Baboon</x:String>
@@ -41,34 +51,32 @@
             </Picker.ItemsSource>-->
         </Picker>
 
-        
-
-        <!--<ListView ItemsSource="{Binding AddressList}" SelectedItem="{Binding SelectedAddress}" Grid.Row="3">
-            <ListView.ItemTemplate>
-                <DataTemplate x:DataType="{x:Type model:Address}">
-                    <HorizontalStackLayout>
-                        <Label Text="{Binding AddressLine, StringFormat='{0},'}" Margin="0,0,5,0"/>
-                        <Label Text="{Binding City, StringFormat='{0},'}" Margin="0,0,5,0"/>
-                        <Label Text="{Binding Country.CountryName, StringFormat='{0}.'}"/>
-                    </HorizontalStackLayout>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>-->
-
-
         <Picker  Title="Pick address" ItemsSource="{Binding AddressList}" ItemDisplayBinding="{Binding FullAddress}" SelectedItem="{Binding SelectedAddress}" Grid.Row="2"/>
 
         <Entry Grid.Row="3" Placeholder="Item Name" Text="{Binding ItemName}" IsSpellCheckEnabled="True"/>
         <Entry Grid.Row="4" Placeholder="Item Description" Text="{Binding ItemDescription}"/>
         <HorizontalStackLayout Grid.Row="5">
-            <Entry Placeholder="Enter Price" Text="{Binding ItemPrice}"/>
+            <Entry Placeholder="Enter Price" Text="{Binding ItemPrice}" Keyboard="Numeric"/>
             <Label Text="SEK" VerticalOptions="Center"/>
         </HorizontalStackLayout>
 
         <HorizontalStackLayout Grid.Row="6">
             <ImageButton Source="icon_snap.png" Command="{Binding SnapPhotoCommand}" HeightRequest="100" WidthRequest="90"/>
-            <Image Source="{Binding Image, Converter={x:StaticResource byteArrayToImageSourceConverter}, Mode=OneWay}" HeightRequest="30" BackgroundColor="Yellow"/>
-            <Image Source="dotnet_bot.png"/>
+
+            <Image Source="{Binding Image, Converter={x:StaticResource byteArrayToImageSourceConverter}}" HeightRequest="150" WidthRequest="150" BackgroundColor="Yellow"/>
+
+
+            <!--<ListView FlowDirection="LeftToRight" ItemsSource="{Binding ImageByteList, Converter={x:StaticResource imageByteListToImageListConverter},Mode=OneWay}" WidthRequest="500">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <HorizontalStackLayout>
+                            <Image Source="{Binding}" WidthRequest="30" BackgroundColor="Red"/>
+                        </HorizontalStackLayout>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>-->
+
+            <!--<Image Source="dotnet_bot.png"/>-->
             <!--<ScrollView FlowDirection="LeftToRight">
                 <CollectionView FlowDirection="LeftToRight" ItemsSource="{Binding ImageList, Converter={x:StaticResource imageByteListToImageListConverter}, Mode=OneWay}">
                     <CollectionView.ItemTemplate>
@@ -82,6 +90,17 @@
             </ScrollView>-->
         </HorizontalStackLayout>
 
+        <!--<ListView BackgroundColor="Red" Grid.Row="7" ItemsSource="{Binding ImageList, Converter={x:StaticResource imageByteListToImageListConverter}}">-->
+        <!--<ListView BackgroundColor="Red" Grid.Row="7" ItemsSource="{Binding ImageList}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <VerticalStackLayout>
+                        <Button Text="Delete" Command="{Binding RemoveImageCommand}"></Button>
+                        <Image Source="{Binding Converter={x:StaticResource byteArrayToImageSourceConverter}}" HeightRequest="150" WidthRequest="150"/>
+                    </VerticalStackLayout>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>-->
 
         <!--<Border Stroke="red" Grid.Row="7"
         StrokeThickness="1"

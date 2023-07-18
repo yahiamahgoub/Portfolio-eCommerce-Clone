@@ -23,7 +23,7 @@ public static class MauiProgram
 
 #if DEBUG
 		builder.Logging.AddDebug();
-#endif		
+#endif
 		builder.Services.AddSingleton<ListingsPage>();
 		builder.Services.AddSingleton<ListingsPageViewModel>();
 		builder.Services.AddSingleton<NewItemPage>();

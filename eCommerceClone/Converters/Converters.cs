@@ -35,9 +35,10 @@ namespace eCommerceClone.Converters
 	{
 		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
 		{
-			IEnumerable<Image> imageList = null;
+			IEnumerable<ImageSource> imageList = null;
 			if (value is IEnumerable<byte[]> imageByteList)
-				imageList = imageByteList.Select(imageByte => new Image { Source = ImageSource.FromStream(() => new MemoryStream(imageByte)) });
+				//imageList = imageByteList.Select(imageByte => new Image { Source = ImageSource.FromStream(() => new MemoryStream(imageByte)) });
+				imageList = imageByteList.Select(imageByte => ImageSource.FromStream(() => new MemoryStream(imageByte)));
 
 			return imageList;
 		}

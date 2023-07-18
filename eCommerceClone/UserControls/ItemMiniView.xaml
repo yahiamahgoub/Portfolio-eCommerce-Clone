@@ -2,6 +2,7 @@
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:eCommerceClone.ViewModels"
+             xmlns:control="clr-namespace:eCommerceClone.UserControls"
              xmlns:conv="clr-namespace:eCommerceClone.Converters"
              xmlns:ctrl="clr-namespace:Microsoft.Maui.Controls"
              x:Class="eCommerceClone.UserControls.ItemMiniView"            
@@ -11,32 +12,32 @@
         <conv:ByteArrayToImageSourceConverter x:Key="byteToImageConverter"/>
     </ContentView.Resources>
     
-    <Grid ColumnDefinitions="Auto, *" RowDefinitions="Auto, *, Auto">
+    <Grid ColumnDefinitions="Auto, *, Auto" RowDefinitions="Auto, *, Auto" Padding="15, 5, 15, 0">
 
-        <Label Grid.Row="0" Grid.Column="0"
-            Text="{Binding ItemName,Converter={x:StaticResource statusToColorConverter}}"
+        <Label Grid.Row="0" Grid.Column="0" Text="{Binding Source={RelativeSource Mode=FindAncestor, AncestorType={x:Type control:ItemMiniView}}, Path=ItemName}"
             VerticalOptions="Start" 
             HorizontalOptions="Start" Margin="10,0,0,0" FontAttributes="Bold"/>
 
-        <!--<Image x:Name="img" Source="dotnet_pic.png" Grid.Row="1" Grid.Column="0" HeightRequest="40"/>-->
-        <Image x:Name="img" Source="{Binding MainImage.ImageBytes,Converter={x:StaticResource byteToImageConverter}}" Grid.Row="1" Grid.Column="0" HeightRequest="40"/>
+        <Image Grid.Row="1" Grid.Column="0" HeightRequest="40"
+               Source="{Binding MainImage,Converter={x:StaticResource byteToImageConverter}, Source={RelativeSource Mode=FindAncestor,AncestorType={x:Type control:ItemMiniView}}}" 
+               />
+        
         <VerticalStackLayout Grid.Row="1" Grid.Column="1">
+
             <HorizontalStackLayout>
-                <Label Text="{Binding ItemPrice}" FontAttributes="Bold" FontSize="Large"/>
+                <Label Text="{Binding ItemPrice,Source={RelativeSource Mode=FindAncestor, AncestorType={x:Type control:ItemMiniView}}}" 
+                       FontAttributes="Bold" FontSize="Medium"/>
                 <Label Text="SEK" FontSize="Small" Margin="5,0,0,0" />
             </HorizontalStackLayout>
-            <!--<Label>
-                <Label.FormattedText>
-                    <FormattedString>
-                        <Span FontAttributes="Bold" FontSize="Large">price 1200</Span>
-                        <Span FontSize="Small">SEK</Span>
-                    </FormattedString>
-                </Label.FormattedText>
-            </Label>-->
-            <Label Text="{Binding ItemDescription}"/>
-        </VerticalStackLayout>
-        <Label Text="posted 1 hr ago" Grid.Row="2" Grid.Column="1" 
-               HorizontalOptions="End" VerticalOptions="End"/>
 
+            <Label Text="{Binding ItemDescription,Source={RelativeSource Mode=FindAncestor,AncestorType={x:Type control:ItemMiniView}}}"/>
+            
+        </VerticalStackLayout>
+
+        <Label Text="posted 2 hr ago" Grid.Row="2" Grid.Column="1" 
+               HorizontalOptions="End" VerticalOptions="End" Margin="0, 0, 10, 0"/>
+
+        <Image Source="icon_emptyheart.png" Grid.Row="2" Grid.Column="2"
+               WidthRequest="20"/>
     </Grid>
 </ContentView>

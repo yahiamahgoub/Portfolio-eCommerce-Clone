@@ -4,13 +4,9 @@ namespace eCommerceClone.UserControls;
 
 public partial class ItemMiniView : ContentView
 {
-	private readonly ItemMiniViewModel itemMiniViewModel;
-
 	public ItemMiniView()
 	{
-		InitializeComponent();
-		itemMiniViewModel = new ItemMiniViewModel();
-		BindingContext = this;		
+		InitializeComponent();	
 	}
 
 	public string ItemName
@@ -21,7 +17,12 @@ public partial class ItemMiniView : ContentView
 
 	// Using a BindableProperty as the backing store for ItemName.  This enables animation, styling, binding, etc...
 	public static readonly BindableProperty ItemNameProperty =
-		BindableProperty.CreateAttached("ItemName", typeof(string), typeof(ItemMiniView), string.Empty);
+		BindableProperty.CreateAttached("ItemName", typeof(string), typeof(ItemMiniView), string.Empty, BindingMode.OneWay, propertyChanged: propertyChanged);
+
+	private static void propertyChanged(BindableObject bindable, object oldValue, object newValue)
+	{
+		var itemMiniView = (ItemMiniView)bindable;
+	}
 
 	public string ItemDescription
 	{
@@ -46,7 +47,10 @@ public partial class ItemMiniView : ContentView
 	public byte[] MainImage
 	{
 		get { return (byte[])GetValue(MainImageProperty); }
-		set { SetValue(MainImageProperty, value);}
+		set 
+		{ 
+			SetValue(MainImageProperty, value);		
+		}
 	}
 
 	// Using a BindableProperty as the backing store for ItemName.  This enables animation, styling, binding, etc...
