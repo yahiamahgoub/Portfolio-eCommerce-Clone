@@ -12,12 +12,7 @@
         <conv:StatusToColorConverter x:Key="statusToColorConverter"/>
         <conv:ByteArrayToImageSourceConverter x:Key="byteArrayToImageSourceConverter"/>
         <conv:ImageByteListToImageListConverter x:Key="imageByteListToImageListConverter"/>
-
-        <!--<Style x:Key="labelStyle" TargetType="Label">
-            <Setter Property="HorizontalOptions" Value="Center" />
-            <Setter Property="VerticalOptions" Value="Center" />
-            <Setter Property="FontSize" Value="18" />
-        </Style>-->
+        
     </ContentPage.Resources>
     <Grid Margin="13" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto, Auto" RowSpacing="10" Padding="15">
         <ImageButton Source="icon_edit.png" WidthRequest="20" HorizontalOptions="End"/>
@@ -56,66 +51,17 @@
         <Entry Grid.Row="3" Placeholder="Item Name" Text="{Binding ItemName}" IsSpellCheckEnabled="True"/>
         <Entry Grid.Row="4" Placeholder="Item Description" Text="{Binding ItemDescription}"/>
         <HorizontalStackLayout Grid.Row="5">
-            <Entry Placeholder="Enter Price" Text="{Binding ItemPrice}" Keyboard="Numeric"/>
-            <Label Text="SEK" VerticalOptions="Center"/>
+            <Entry Placeholder="Enter Price" Text="{Binding ItemPrice}" Keyboard="Numeric" Margin="0,0,10,0"/>
+            <Picker ItemsSource="{Binding CurrencyList}" SelectedItem="{Binding SelectedCurrency}" VerticalOptions="Center"/>
         </HorizontalStackLayout>
 
         <HorizontalStackLayout Grid.Row="6">
             <ImageButton Source="icon_snap.png" Command="{Binding SnapPhotoCommand}" HeightRequest="100" WidthRequest="90"/>
 
             <Image Source="{Binding Image, Converter={x:StaticResource byteArrayToImageSourceConverter}}" HeightRequest="150" WidthRequest="150" BackgroundColor="Yellow"/>
-
-
-            <!--<ListView FlowDirection="LeftToRight" ItemsSource="{Binding ImageByteList, Converter={x:StaticResource imageByteListToImageListConverter},Mode=OneWay}" WidthRequest="500">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <HorizontalStackLayout>
-                            <Image Source="{Binding}" WidthRequest="30" BackgroundColor="Red"/>
-                        </HorizontalStackLayout>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>-->
-
-            <!--<Image Source="dotnet_bot.png"/>-->
-            <!--<ScrollView FlowDirection="LeftToRight">
-                <CollectionView FlowDirection="LeftToRight" ItemsSource="{Binding ImageList, Converter={x:StaticResource imageByteListToImageListConverter}, Mode=OneWay}">
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate>
-                            <HorizontalStackLayout>
-                                <Image Source="{Binding}"/>
-                            </HorizontalStackLayout>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
-            </ScrollView>-->
         </HorizontalStackLayout>
 
-        <!--<ListView BackgroundColor="Red" Grid.Row="7" ItemsSource="{Binding ImageList, Converter={x:StaticResource imageByteListToImageListConverter}}">-->
-        <!--<ListView BackgroundColor="Red" Grid.Row="7" ItemsSource="{Binding ImageList}">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <VerticalStackLayout>
-                        <Button Text="Delete" Command="{Binding RemoveImageCommand}"></Button>
-                        <Image Source="{Binding Converter={x:StaticResource byteArrayToImageSourceConverter}}" HeightRequest="150" WidthRequest="150"/>
-                    </VerticalStackLayout>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>-->
-
-        <!--<Border Stroke="red" Grid.Row="7"
-        StrokeThickness="1"
-        Padding="16,8"
-        HorizontalOptions="Center">
-            <Entry Text=".NET MAUI"           
-           FontSize="18"
-           FontAttributes="Bold" />
-        </Border>-->
-
         <Button Text="Add" VerticalOptions="CenterAndExpand" Grid.Row="8" Command="{Binding SaveItemCommand}"/>
-
-        <!--<Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />-->
+        
     </Grid>
 </ContentPage>

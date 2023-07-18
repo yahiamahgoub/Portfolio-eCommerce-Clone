@@ -46,6 +46,11 @@ namespace eCommerceClone.ViewModels
 		byte[] image;
 
 		[ObservableProperty]
+		Currency selectedCurrency;
+
+		public IEnumerable<Currency> CurrencyList { get; set; } = Enum.GetValues(typeof(Currency)) as Currency[];
+
+		[ObservableProperty]
 		Address selectedAddress;
 
 		public ObservableRangeCollection<Category> Categories { get; set; } = new ObservableRangeCollection<Category>();
@@ -80,6 +85,13 @@ namespace eCommerceClone.ViewModels
 			await LoadUser();
 			await LoadCategories();
 			await LoadAddressesForUser();
+			await LoadCurrency();
+		}
+
+		[RelayCommand]
+		public async Task LoadCurrency()
+		{
+			SelectedCurrency = CurrencyList.FirstOrDefault();
 		}
 
 		[RelayCommand]
@@ -133,9 +145,10 @@ namespace eCommerceClone.ViewModels
 			{
 				FileResult photo = await MediaPicker.Default.PickPhotoAsync();
 
-				//using (var imgStream = await photo.OpenReadAsync())
-				//{
-
+				if(photo is not null)
+				{
+					//using (var imgStream = await photo.OpenReadAsync())
+					//{
 					// Load file meta data with FileInfo
 					FileInfo fileInfo = new FileInfo(photo.FullPath);
 
@@ -147,8 +160,8 @@ namespace eCommerceClone.ViewModels
 					{
 						fs.Read(data, 0, data.Length);
 					}
-				ImageByteList.Add(data);
-				Image = data;
+					ImageByteList.Add(data);
+					Image = data;
 
 					// Delete the temporary file
 					//fileInfo.Delete();
@@ -161,19 +174,19 @@ namespace eCommerceClone.ViewModels
 					//	streamReader.readby
 					//}
 					//Image = System.Text.Encoding.UTF8.GetBytes(streamReader.ReadToEnd());					
-				//}
-				//if (photo != null)
-				//{
-				//	// save the file into local storage
-				//	string localFilePath = Path.Combine(FileSystem.CacheDirectory, photo.FileName);
+					//}
+					//if (photo != null)
+					//{
+					//	// save the file into local storage
+					//	string localFilePath = Path.Combine(FileSystem.CacheDirectory, photo.FileName);
 
-				//	using Stream sourceStream = await photo.OpenReadAsync();
-				//	using FileStream localFileStream = File.OpenWrite(localFilePath);
+					//	using Stream sourceStream = await photo.OpenReadAsync();
+					//	using FileStream localFileStream = File.OpenWrite(localFilePath);
 
-				//	await sourceStream.CopyToAsync(localFileStream);
-				//}
+					//	await sourceStream.CopyToAsync(localFileStream);
+					//}
+				}
 			}
-
 		}
 
 		[RelayCommand]
@@ -184,7 +197,7 @@ namespace eCommerceClone.ViewModels
 				ItemName = ItemName,
 				ItemDescription = ItemDescription,
 				ItemPrice = ItemPrice,
-				Currency = Currency.SEK,
+				Currency = SelectedCurrency,
 				Status = Status.Available,
 				UserId = User.UserId,				
 				AddressId = SelectedAddress.AddressId,
