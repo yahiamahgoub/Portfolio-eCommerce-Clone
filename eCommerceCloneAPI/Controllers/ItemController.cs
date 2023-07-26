@@ -28,7 +28,7 @@ namespace eCommerceClone.Controllers
 		public async Task<ActionResult<IEnumerable<ItemMini>>> GetItemsMini() => Ok(await repository.GetItemsMiniAsync());
 
 		[HttpGet("{itemId}", Name = "GetItem")]
-		public async Task<ActionResult<Item?>> GetItem(int itemId) => Ok(await repository.GetById(itemId));
+		public async Task<ActionResult<Item?>> GetItem(int itemId) => Ok(await repository.GetItemFullAsync(itemId));
 		
 		[HttpPost]
 		public async Task<ActionResult<Item?>> Add(ItemForAdd itemForAdd)

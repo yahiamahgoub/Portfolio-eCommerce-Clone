@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:userCtrl="clr-namespace:eCommerceClone.UserControls"
+             xmlns:data="clr-namespace:DataLib.Models;assembly=DataLib"
+             x:Class="eCommerceClone.Views.FavoritesPage"
+             Title="FavoritesPage">
+    <ScrollView>
+        <VerticalStackLayout>
+            <CollectionView ItemsSource="{Binding ItemsMini}" x:Name="collection">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="{x:Type data:ItemMini}">
+                        <userCtrl:ItemMiniView ItemName="{Binding ItemName}" ItemDescription="{Binding ItemDescription}" 
+                                           ItemPrice="{Binding ItemPrice}" MainImage="{Binding MainImage.ImageBytes}"/>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

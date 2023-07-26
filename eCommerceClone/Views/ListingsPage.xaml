@@ -4,24 +4,19 @@
              xmlns:vm="clr-namespace:eCommerceClone.ViewModels"
              xmlns:userCtrl="clr-namespace:eCommerceClone.UserControls"
              xmlns:data="clr-namespace:DataLib.Models;assembly=DataLib"
+             xmlns:localization="clr-namespace:eCommerceClone.Resources.Localization"
              x:Class="eCommerceClone.Views.ListingsPage"
              x:DataType="vm:ListingsPageViewModel"
-             Title="ListingsPage">
-
-    <!--<ContentPage.BindingContext>
-        <vm:ListingsPageViewModel/>
-    </ContentPage.BindingContext>-->
-
+             Title="Listings">
     <ScrollView>
-        <VerticalStackLayout>
-            <CollectionView ItemsSource="{Binding ItemsMini}" x:Name="collection">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="{x:Type data:ItemMini}">
-                        <userCtrl:ItemMiniView ItemName="{Binding ItemName}" ItemDescription="{Binding ItemDescription}" 
+        <CollectionView x:Name="MyCollectionView" ItemsSource="{Binding ItemsMini}" SelectedItem="{Binding SelectedItem}" 
+                        SelectionMode="Single" SelectionChangedCommand="{Binding NavigateToDetailPageCommand}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="{x:Type data:ItemMini}">
+                    <userCtrl:ItemMiniView ItemName="{Binding ItemName}" ItemDescription="{Binding ItemDescription}" 
                                            ItemPrice="{Binding ItemPrice}" MainImage="{Binding MainImage.ImageBytes}"/>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
-        </VerticalStackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
     </ScrollView>
 </ContentPage>

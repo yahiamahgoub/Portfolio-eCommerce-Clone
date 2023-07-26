@@ -12,11 +12,22 @@ namespace eCommerceClone.ViewModels
 
 		public ObservableRangeCollection<ItemMini> ItemsMini { get; set; } = new ObservableRangeCollection<ItemMini>();
 
+		[ObservableProperty]
+		ItemMini selectedItem;
 
 		public ListingsPageViewModel(IItemService _dataService)
         {
 			dataService = _dataService;			
 
+		}
+
+		[RelayCommand]
+		async Task NavigateToDetailPage()
+		{
+			if(SelectedItem is not null)
+				await Shell.Current.GoToAsync($"///MainPage/ItemDetailsPage?ItemId={SelectedItem.ItemId}");
+			else
+				await Shell.Current.GoToAsync($"//MainPage/ItemDetailsPage?ItemId=1");
 		}
 
 

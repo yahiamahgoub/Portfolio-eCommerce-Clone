@@ -5,33 +5,47 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:eCommerceClone"
     xmlns:views="clr-namespace:eCommerceClone.Views"
+    xmlns:ext="clr-namespace:eCommerceClone.CusomExtensions"
+    xmlns:localization="clr-namespace:eCommerceClone.Resources.Localization"
     Shell.FlyoutBehavior="Flyout">
 
     <FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
-        
-        <Tab Title="Listings Page" Icon="icon_listings.png">
-            <ShellContent Icon="icon_listings.png" Title="ListingsPage" ContentTemplate="{DataTemplate views:ListingsPage}" Route="MainPage" />
-        </Tab>
 
+        <Tab Title="Listings Page" Icon="icon_listings.png">
+            <ShellContent Icon="icon_listings.png" 
+                          Title="{Static localization:AppResources.ListingPageTitle}" 
+                          ContentTemplate="{DataTemplate views:ListingsPage}" 
+                          Route="MainPage" />
+        </Tab>
+        
+        <Tab Title="MyPage" Icon="icon_user.png">
+            <ShellContent Icon="icon_user.png"
+            Title="New Page"
+            ContentTemplate="{DataTemplate views:UserPage}" 
+            Route="UserPage" />
+        </Tab>
+        
         <Tab Title="Add Item" Icon="icon_add.png">
             <ShellContent Icon="icon_add.png"
-        Title="New Page"
-        ContentTemplate="{DataTemplate views:NewItemPage}"
-        Route="MainPage" />
+            Title="New Page"
+            ContentTemplate="{DataTemplate views:NewItemPage}"
+            Route="NewItemPage" />
         </Tab>
         
         <!--<Tab Title="Home">
-            <ShellContent
+            <ShellContent 
         Title="MainPage(Home)"
         ContentTemplate="{DataTemplate local:MainPage}"
         Route="MainPage" />
+        
+         Text="{local:Translate HelloWorld}"
         </Tab>-->
     </FlyoutItem>
-   
 
-    <MenuItem Text="Choose Language" IconImageSource="icon_language.png"/>
-    <MenuItem Text="Rate App" IconImageSource="icon_rate.png"/>
-    <MenuItem Text="About App" IconImageSource="icon_about.png"/>
+
+    <MenuItem Text="{ext:Translate ChooseLanguage}" IconImageSource="icon_language.png"/>
+    <MenuItem Text="{ext:Translate RateApp}" IconImageSource="icon_rate.png"/>
+    <MenuItem Text="{ext:Translate AboutApp}" IconImageSource="icon_about.png"/>
     <!--<MenuItem Text="Help" IconImageSource="" Command="" CommandParameter=""/>-->
 
 </Shell>

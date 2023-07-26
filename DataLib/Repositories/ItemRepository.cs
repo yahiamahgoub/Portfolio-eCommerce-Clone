@@ -25,17 +25,14 @@ namespace DataLib.Repositories
 		}
 
 
-		public async Task<IEnumerable<ItemMini>> GetItemFullAsync()
-		{
-			var items = appDbContext.Items.Include(item => item.ImageList).Where(item => item.ImageList.Any(img => img.IsMainImage));
-			return mapper.Map<IEnumerable<Item>, IEnumerable<ItemMini>>(items);
-		}
-
-
-		public async Task<IEnumerable<Item>> GetItemsAsync() => appDbContext.Items.Include(item => item.ImageList);
-
-		public async Task<Item?> GetItemFullAsync(int id) => await appDbContext.Items.Include(item => item.ImageList).FirstOrDefaultAsync();
+		public async Task<Item?> GetItemFullAsync(int itemId) => 
+					await appDbContext.Items.Include(item => item.ImageList)
+					.Include(item => item.Address)
+					.FirstOrDefaultAsync(item => item.ItemId == itemId);
 		
+
+
+		public async Task<IEnumerable<Item>> GetItemsAsync() => appDbContext.Items.Include(item => item.ImageList);		
 
 		public async Task<IEnumerable<Item>> GetItemsAsync(string? name, string? searchQuery, int pageNumber, int pageSize)
         {

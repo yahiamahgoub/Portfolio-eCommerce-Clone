@@ -44,6 +44,17 @@ public partial class ItemMiniView : ContentView
 	public static readonly BindableProperty ItemPriceProperty =
 		BindableProperty.CreateAttached("ItemPrice", typeof(decimal), typeof(ItemMiniView), 0m);
 
+
+	public bool IsItemSaved
+	{
+		get { return (bool)GetValue(IsItemSavedProperty); }
+		set { SetValue(IsItemSavedProperty, value); }
+	}
+
+	
+	public static readonly BindableProperty IsItemSavedProperty =
+		BindableProperty.CreateAttached("IsItemSaved", typeof(bool), typeof(ItemMiniView), false);
+
 	public byte[] MainImage
 	{
 		get { return (byte[])GetValue(MainImageProperty); }
@@ -56,4 +67,9 @@ public partial class ItemMiniView : ContentView
 	// Using a BindableProperty as the backing store for ItemName.  This enables animation, styling, binding, etc...
 	public static readonly BindableProperty MainImageProperty =
 		BindableProperty.CreateAttached("MainImage", typeof(byte[]), typeof(ItemMiniView), null);
+
+	private void ImageButton_Clicked(object sender, EventArgs e)
+	{
+		IsItemSaved = !IsItemSaved;
+	}	
 }

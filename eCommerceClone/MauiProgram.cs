@@ -29,6 +29,9 @@ public static class MauiProgram
 		builder.Services.AddSingleton<NewItemPage>();
 		builder.Services.AddSingleton<NewItemPageViewModel>();
 
+		builder.Services.AddScoped<ItemDetailsPage>();
+		builder.Services.AddScoped<ItemDetailsPageViewModel>();
+
 		builder.Services.AddSingleton<IItemService, ServiceClient>();
 		builder.Services.AddSingleton<IUserService, ServiceClient>();
 		builder.Services.AddSingleton<IAddressService, ServiceClient>();

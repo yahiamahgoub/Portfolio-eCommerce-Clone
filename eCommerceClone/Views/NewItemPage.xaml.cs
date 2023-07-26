@@ -15,11 +15,7 @@ public partial class NewItemPage : ContentPage
 		base.OnAppearing();
 		var vm = (NewItemPageViewModel)BindingContext;
 
-		await vm.LoadCommand.ExecuteAsync(null);
-
-		//await vm.LoadUserCommand.ExecuteAsync(null);
-		//await vm.LoadCategoriesCommand.ExecuteAsync(null);
-		//await vm.LoadAddressesForUserCommand.ExecuteAsync(null);
+		await vm.LoadCommand.ExecuteAsync(null);	
 	}
 
 	public async Task TakePhoto()

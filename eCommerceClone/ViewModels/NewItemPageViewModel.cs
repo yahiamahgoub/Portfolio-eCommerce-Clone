@@ -97,7 +97,7 @@ namespace eCommerceClone.ViewModels
 		[RelayCommand]
 		public async Task LoadCategories()
 		{
-			var cats = await categoryService.GetCategories();
+			var cats = await categoryService.GetCategoriesAsync();
 			Categories.Clear();
 			Categories.AddRange(cats);
 			SelectedCategory = Categories.FirstOrDefault();

@@ -35,13 +35,7 @@
 	}
 
 	public class ServiceSettings
-	{
-
-		//static public string URL = "https://192.168.137.135";
-		//static public string PORT = "44361";
-
-		//static public string URL = "http://192.168.137.135";
-		//static public string PORT = "7071";
+	{	
 		public static string URL
 		{
 			get
@@ -50,10 +44,10 @@
 				//DeviceInfo.Platform == DevicePlatform.Android ? "http://10.0.2.2:5000" : "http://localhost:5000";				
 				if (DeviceInfo.Platform == DevicePlatform.Android)
 				{
-					return "http://192.168.137.135:7071";
-					//return "https://192.168.137.135:44361";
+					return "http://192.168.137.1:7071";
+					//return "https://192.168.137.1:44361";
 				}
-				//return "http://192.168.137.135:7071";
+				//return "http://192.168.137.1:7071";
 				return "http://localhost:7071";
 			}
 		}

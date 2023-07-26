@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using DataLib.Models;
+using System.Globalization;
 
 namespace eCommerceClone.Converters
 {
@@ -14,6 +15,40 @@ namespace eCommerceClone.Converters
 			return (bool)value ? 1 : 0;
 		}
 	}
+
+	public class BoolToImageConverter : IValueConverter
+	{
+		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+		{
+			if (value is bool boolValue)			
+				return boolValue ? "icon_fullheart.png" : "icon_emptyheart.png";
+			
+			return "icon_emptyheart.png";
+		}
+
+		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+		{
+			return (bool)value ? 1 : 0;
+		}
+	}
+
+
+	public class CurrencyToStringConverter : IValueConverter
+	{
+		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+		{
+			if (value is Currency currencylValue)
+				return currencylValue.ToString();
+
+			return string.Empty;
+		}
+
+		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+		{
+			return (bool)value ? 1 : 0;
+		}
+	}
+
 
 	public class ByteArrayToImageSourceConverter : IValueConverter
 	{

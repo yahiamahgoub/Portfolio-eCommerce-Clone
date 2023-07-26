@@ -10,8 +10,13 @@
     <ContentView.Resources>
         <conv:StatusToColorConverter x:Key="statusToColorConverter"/>
         <conv:ByteArrayToImageSourceConverter x:Key="byteToImageConverter"/>
+        <conv:BoolToImageConverter x:Key="boolToImageConverter"/>
     </ContentView.Resources>
-    
+
+
+    <!--Text="{local:Translate HelloWorld}"-->
+
+
     <Grid ColumnDefinitions="Auto, *, Auto" RowDefinitions="Auto, *, Auto" Padding="15, 5, 15, 0">
 
         <Label Grid.Row="0" Grid.Column="0" Text="{Binding Source={RelativeSource Mode=FindAncestor, AncestorType={x:Type control:ItemMiniView}}, Path=ItemName}"
@@ -37,7 +42,7 @@
         <Label Text="posted 2 hr ago" Grid.Row="2" Grid.Column="1" 
                HorizontalOptions="End" VerticalOptions="End" Margin="0, 0, 10, 0"/>
 
-        <Image Source="icon_emptyheart.png" Grid.Row="2" Grid.Column="2"
-               WidthRequest="20"/>
+        <ImageButton Source="{Binding IsItemSaved, Converter={x:StaticResource boolToImageConverter}, Source={RelativeSource Mode=FindAncestor,AncestorType={x:Type control:ItemMiniView}}}" Grid.Row="2" Grid.Column="2"
+              HeightRequest="20" WidthRequest="20" Clicked="ImageButton_Clicked"/>
     </Grid>
 </ContentView>

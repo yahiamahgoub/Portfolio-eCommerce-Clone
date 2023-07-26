@@ -43,6 +43,9 @@
                     <x:String>Howler Monkey</x:String>
                     <x:String>Japanese Macaque</x:String>
                 </x:Array>
+            
+                            Text="{local:Translate HelloWorld}"
+
             </Picker.ItemsSource>-->
         </Picker>
 
@@ -58,7 +61,7 @@
         <HorizontalStackLayout Grid.Row="6">
             <ImageButton Source="icon_snap.png" Command="{Binding SnapPhotoCommand}" HeightRequest="100" WidthRequest="90"/>
 
-            <Image Source="{Binding Image, Converter={x:StaticResource byteArrayToImageSourceConverter}}" HeightRequest="150" WidthRequest="150" BackgroundColor="Yellow"/>
+            <Image Source="{Binding Image, Converter={x:StaticResource byteArrayToImageSourceConverter}}" HeightRequest="150" WidthRequest="150"/>
         </HorizontalStackLayout>
 
         <Button Text="Add" VerticalOptions="CenterAndExpand" Grid.Row="8" Command="{Binding SaveItemCommand}"/>

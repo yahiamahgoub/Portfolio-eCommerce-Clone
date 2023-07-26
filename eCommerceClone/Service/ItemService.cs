@@ -11,6 +11,7 @@ namespace eCommerceClone.Service
 	public interface IItemService
 	{
 		Task<IEnumerable<ItemMini>> GetItemsMini();
+		Task<Item> GetItem(int itemId);
 		Task<Item> AddItemAsync(ItemForAdd itemForAdd);
 		//Task<Coffee> GetCoffee(int id);
 		//Task RemoveCoffee(int id);
@@ -69,7 +70,8 @@ namespace eCommerceClone.Service
 
     public interface ICategoryService
     {
-		Task<IEnumerable<Category>> GetCategories();
+		Task<IEnumerable<Category>> GetCategoriesAsync();
+		Task<Category> GetCategoryAsync(int categoryId);
 	}
 
 	public interface IUserService
@@ -87,7 +89,7 @@ namespace eCommerceClone.Service
 			this.client = client;
 			this.mapper = mapper;
 		}
-		public async Task<IEnumerable<Category>> GetCategories()
+		public async Task<IEnumerable<Category>> GetCategoriesAsync()
 			=> await client.GetResponse<IEnumerable<Category>>(HttpMethod.Get, $"category");
 
 		public async Task<IEnumerable<ItemMini>> GetItemsMini() 
@@ -108,6 +110,16 @@ namespace eCommerceClone.Service
 		public async Task<Item> AddItemAsync(ItemForAdd itemForAdd)
 		{
 			return await client.GetResponse<ItemForAdd, Item>(HttpMethod.Post, $"item/", itemForAdd);
+		}
+
+		public async Task<Item> GetItem(int itemId)
+		{
+			return await client.GetResponse<Item>(HttpMethod.Get, $"item/{itemId}");
+		}
+
+		public async Task<Category> GetCategoryAsync(int categoryId)
+		{
+			return await client.GetResponse<Category>(HttpMethod.Get, $"category/{categoryId}");
 		}
 	}
 }
