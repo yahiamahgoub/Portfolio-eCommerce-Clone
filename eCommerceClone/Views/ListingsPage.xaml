@@ -5,9 +5,44 @@
              xmlns:userCtrl="clr-namespace:eCommerceClone.UserControls"
              xmlns:data="clr-namespace:DataLib.Models;assembly=DataLib"
              xmlns:localization="clr-namespace:eCommerceClone.Resources.Localization"
+             xmlns:conv="clr-namespace:eCommerceClone.Converters"
              x:Class="eCommerceClone.Views.ListingsPage"
              x:DataType="vm:ListingsPageViewModel"
              Title="Listings">
+
+    <ContentPage.Resources>
+        <conv:StatusToColorConverter x:Key="statusToColorConverter"/>
+        <conv:ByteArrayToImageSourceConverter x:Key="byteToImageConverter"/>
+    </ContentPage.Resources>
+    
+    <Shell.SearchHandler>
+        <userCtrl:ItemSearchHandler ItemsMini="{Binding ItemsMini}"
+                                    Placeholder="Enter item name" 
+                                    ShowsResults="True" 
+                                    DisplayMemberName="ItemName">
+            <userCtrl:ItemSearchHandler.ItemTemplate>
+                <DataTemplate x:DataType="{x:Type data:ItemMini}">
+                    <Grid Padding="10" ColumnDefinitions="0.15*,0.85*" ColumnSpacing="10">        
+                        <Image Source="{Binding MainImage.ImageBytes,Converter={x:StaticResource byteToImageConverter}}"
+                               HeightRequest="40"
+                               WidthRequest="40"/>
+                        <Label Grid.Column="1"
+                               Text="{Binding ItemName}"
+                               FontAttributes="Bold" VerticalOptions="Center"
+                               />
+                    </Grid>
+                </DataTemplate>
+            </userCtrl:ItemSearchHandler.ItemTemplate>
+        </userCtrl:ItemSearchHandler>
+
+        <!--<userCtrl:ItemSearchHandler ItemsMini="{Binding ItemsMini}"
+                                    Placeholder="Enter item name" 
+                                    ShowsResults="True" 
+                                    DisplayMemberName="ItemName">
+        </userCtrl:ItemSearchHandler>-->
+        
+    </Shell.SearchHandler>
+    
     <ScrollView>
         <CollectionView x:Name="MyCollectionView" ItemsSource="{Binding ItemsMini}" SelectedItem="{Binding SelectedItem}" 
                         SelectionMode="Single" SelectionChangedCommand="{Binding NavigateToDetailPageCommand}">
