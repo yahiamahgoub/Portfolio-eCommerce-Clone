@@ -44,11 +44,13 @@
 				//DeviceInfo.Platform == DevicePlatform.Android ? "http://10.0.2.2:5000" : "http://localhost:5000";				
 				if (DeviceInfo.Platform == DevicePlatform.Android)
 				{
-					return "http://192.168.137.1:7071";
+					return "https://ecommercecloneapi.azurewebsites.net/";
+					//return "http://192.168.137.1:7071";
 					//return "https://192.168.137.1:44361";
 				}
 				//return "http://192.168.137.1:7071";
-				return "http://localhost:7071";
+				//return "http://localhost:7071";
+				return "https://ecommercecloneapi.azurewebsites.net/";
 			}
 		}
 	}

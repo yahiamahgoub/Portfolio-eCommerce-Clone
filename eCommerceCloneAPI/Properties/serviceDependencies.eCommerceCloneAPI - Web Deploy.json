@@ -1,0 +1,15 @@
+{
+  "dependencies": {
+    "mssql1": {
+      "secretStore": null,
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/ecommerceclonedbserver/databases/eCommerceCloneDb",
+      "type": "mssql.azure",
+      "connectionId": "AppDbContext"
+    },
+    "apis1": {
+      "apiEndpoint": "https://ecommercecloneapiservicemgmt.azure-api.net/",
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.ApiManagement/service/eCommerceCloneAPIServiceMgmt/apis/eCommerceCloneAPI",
+      "type": "apis.azure"
+    }
+  }
+}

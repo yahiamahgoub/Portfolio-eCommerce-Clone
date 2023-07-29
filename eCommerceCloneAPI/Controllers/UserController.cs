@@ -22,6 +22,12 @@ namespace eCommerceClone.Controllers
 			this.mapper = mapper;
 		}
 
+		[HttpGet]
+		public List<string> GetUsers()
+		{
+			return new List<string>{"Ok", "Test"};
+		}
+
 		[HttpGet("{userId}", Name = "GetUserById")]
 		public async Task<User> GetUserById(int userid, bool includeAddressList = true)
 		{

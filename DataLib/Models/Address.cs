@@ -24,7 +24,7 @@ namespace DataLib.Models
         public int CountryId { get; set; }
 
         internal User? Poster { get; set; }
-        public int UserId { get; set; }
+        public int? UserId { get; set; }
 
         internal ICollection<Item> Items { get; set; } = new List<Item>();
 
