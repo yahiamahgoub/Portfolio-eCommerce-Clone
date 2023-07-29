@@ -45,7 +45,9 @@
 
     <MenuItem Text="{ext:Translate ChooseLanguage}" IconImageSource="icon_language.png"/>
     <MenuItem Text="{ext:Translate RateApp}" IconImageSource="icon_rate.png"/>
-    <MenuItem Text="{ext:Translate AboutApp}" IconImageSource="icon_about.png"/>
+    <FlyoutItem Title="{ext:Translate AboutApp}" Icon="icon_about.png">
+        <ShellContent ContentTemplate="{DataTemplate views:AboutPage}"/>
+    </FlyoutItem>
     <!--<MenuItem Text="Help" IconImageSource="" Command="" CommandParameter=""/>-->
 
 </Shell>
