@@ -70,6 +70,23 @@
 	  <None Remove="Resources\Images\icon_phone.svg" />
 	  <None Remove="Resources\Images\icon_rate.png" />
 	  <None Remove="Resources\Images\icon_seller.jpg" />
+	  <None Remove="Resources\Images\social\icon_email.svg" />
+	  <None Remove="Resources\Images\social\icon_facebook.svg" />
+	  <None Remove="Resources\Images\social\icon_github.svg" />
+	  <None Remove="Resources\Images\social\icon_instagram.svg" />
+	  <None Remove="Resources\Images\social\icon_linkedin.svg" />
+	  <None Remove="Resources\Images\social\icon_twitter.svg" />
+	  <None Remove="Resources\Images\social\icon_youtube.svg" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiImage Include="Resources\Images\social\icon_email.svg" />
+	  <MauiImage Include="Resources\Images\social\icon_facebook.svg" />
+	  <MauiImage Include="Resources\Images\social\icon_github.svg" />
+	  <MauiImage Include="Resources\Images\social\icon_instagram.svg" />
+	  <MauiImage Include="Resources\Images\social\icon_linkedin.svg" />
+	  <MauiImage Include="Resources\Images\social\icon_twitter.svg" />
+	  <MauiImage Include="Resources\Images\social\icon_youtube.svg" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -81,12 +98,12 @@
 	<ItemGroup>
 		<PackageReference Include="CommunityToolkit.Maui" Version="5.2.0" />
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.0" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.8">
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.9">
 		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		  <PrivateAssets>all</PrivateAssets>
 		</PackageReference>
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.8" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.8">
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.9" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.9">
 		  <PrivateAssets>all</PrivateAssets>
 		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
