@@ -126,6 +126,9 @@
   <data name="AppTitle" xml:space="preserve">
     <value>eCommerce App</value>
   </data>
+  <data name="AppVersion" xml:space="preserve">
+    <value>App Version</value>
+  </data>
   <data name="ChooseLanguage" xml:space="preserve">
     <value>Choose Language</value>
   </data>
@@ -141,7 +144,7 @@
   <data name="DetailedItemPageItemNameField" xml:space="preserve">
     <value>Item Name</value>
   </data>
-  <data name="LicenseAgreement" xml:space="preserve">
+  <data name="LicenceAgreement" xml:space="preserve">
     <value>Terms and Conditions</value>
   </data>
   <data name="ListingPageTitle" xml:space="preserve">

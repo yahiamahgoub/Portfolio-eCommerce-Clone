@@ -88,6 +88,15 @@ namespace eCommerceClone.Resources.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to App Version.
+        /// </summary>
+        internal static string AppVersion {
+            get {
+                return ResourceManager.GetString("AppVersion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Choose Language.
         /// </summary>
         internal static string ChooseLanguage {
@@ -135,9 +144,9 @@ namespace eCommerceClone.Resources.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Terms and Conditions.
         /// </summary>
-        internal static string LicenseAgreement {
+        internal static string LicenceAgreement {
             get {
-                return ResourceManager.GetString("LicenseAgreement", resourceCulture);
+                return ResourceManager.GetString("LicenceAgreement", resourceCulture);
             }
         }
         
