@@ -5,35 +5,36 @@
              xmlns:model="clr-namespace:DataLib.Models;assembly=DataLib"
              xmlns:conv="clr-namespace:eCommerceClone.Converters"
              x:Class="eCommerceClone.Views.NewItemPage"
-             Title="NewItemPage"
+             Title="New Item"
              x:DataType="vm:NewItemPageViewModel"
              >
     <ContentPage.Resources>
         <conv:StatusToColorConverter x:Key="statusToColorConverter"/>
         <conv:ByteArrayToImageSourceConverter x:Key="byteArrayToImageSourceConverter"/>
         <conv:ImageByteListToImageListConverter x:Key="imageByteListToImageListConverter"/>
-        
+
     </ContentPage.Resources>
-    <Grid Margin="13" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto, Auto" RowSpacing="10" Padding="15">
-        <ImageButton Source="icon_edit.png" WidthRequest="20" HorizontalOptions="End"/>
+    <ScrollView>
+        <Grid Margin="13" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto, Auto" RowSpacing="10" Padding="15">
+            <ImageButton Source="icon_edit.png" WidthRequest="20" HorizontalOptions="End"/>
 
-        <!--bio card design-->
-        <Frame>
-            <Grid Grid.Row="0" ColumnDefinitions="auto, *" RowDefinitions="auto, auto" ColumnSpacing="10">
-                <Frame CornerRadius="100" IsClippedToBounds="True" HeightRequest="100" Padding="0" Grid.RowSpan="2" Grid.Column="0" WidthRequest="100">
-                    <Image Source="icon_femaleseller.jpg" HorizontalOptions="Center" VerticalOptions="Center"/>
-                </Frame>
-                <Label Grid.Column="1" Text="{Binding User.Name}" Margin="10,0,5,0" FontSize="Medium" FontAttributes="Bold"/>
-                <HorizontalStackLayout Grid.Column="1" Grid.Row="1">
-                    <Image Source="icon_phone.png" WidthRequest="30" Margin="0,0,10,0"/>
-                    <Label Text="{Binding User.PhoneNumber}" FontSize="Medium"/>
-                </HorizontalStackLayout>
-            </Grid>
-        </Frame>
+            <!--bio card design-->
+            <Frame>
+                <Grid Grid.Row="0" ColumnDefinitions="auto, *" RowDefinitions="auto, auto" ColumnSpacing="10">
+                    <Frame CornerRadius="100" IsClippedToBounds="True" HeightRequest="100" Padding="0" Grid.RowSpan="2" Grid.Column="0" WidthRequest="100">
+                        <Image Source="icon_femaleseller.jpg" HorizontalOptions="Center" VerticalOptions="Center"/>
+                    </Frame>
+                    <Label Grid.Column="1" Text="{Binding CurrentUser.Name}" Margin="10,0,5,0" FontSize="Medium" FontAttributes="Bold"/>
+                    <HorizontalStackLayout Grid.Column="1" Grid.Row="1">
+                        <Image Source="icon_phone.png" WidthRequest="30" Margin="0,0,10,0"/>
+                        <Label Text="{Binding CurrentUser.PhoneNumber}" FontSize="Medium"/>
+                    </HorizontalStackLayout>
+                </Grid>
+            </Frame>
 
-        <Picker x:Name="picker" Grid.Row="1"
+            <Picker x:Name="picker" Grid.Row="1"
         Title="Select a category" ItemsSource="{Binding Categories}" ItemDisplayBinding="{Binding Name}" SelectedItem="{Binding SelectedCategory, Mode=TwoWay}">
-            <!--<Picker.ItemsSource>
+                <!--<Picker.ItemsSource>
                 <x:Array Type="{x:Type x:String}">
                     <x:String>Baboon</x:String>
                     <x:String>Capuchin Monkey</x:String>
@@ -47,24 +48,34 @@
                             Text="{local:Translate HelloWorld}"
 
             </Picker.ItemsSource>-->
-        </Picker>
+            </Picker>
 
-        <Picker  Title="Pick address" ItemsSource="{Binding AddressList}" ItemDisplayBinding="{Binding FullAddress}" SelectedItem="{Binding SelectedAddress}" Grid.Row="2"/>
+            <Picker  Title="Pick address" ItemsSource="{Binding AddressList}" ItemDisplayBinding="{Binding FullAddress}" SelectedItem="{Binding SelectedAddress}" Grid.Row="2"/>
 
-        <Entry Grid.Row="3" Placeholder="Item Name" Text="{Binding ItemName}" IsSpellCheckEnabled="True"/>
-        <Entry Grid.Row="4" Placeholder="Item Description" Text="{Binding ItemDescription}"/>
-        <HorizontalStackLayout Grid.Row="5">
-            <Entry Placeholder="Enter Price" Text="{Binding ItemPrice}" Keyboard="Numeric" Margin="0,0,10,0"/>
-            <Picker ItemsSource="{Binding CurrencyList}" SelectedItem="{Binding SelectedCurrency}" VerticalOptions="Center"/>
-        </HorizontalStackLayout>
+            <Entry Grid.Row="3" Placeholder="Item Name" Text="{Binding ItemName}" IsSpellCheckEnabled="True"/>
+            <Entry Grid.Row="4" Placeholder="Item Description" Text="{Binding ItemDescription}"/>
+            <HorizontalStackLayout Grid.Row="5">
+                <Entry Placeholder="Enter Price" Text="{Binding ItemPrice}" Keyboard="Numeric" Margin="0,0,10,0"/>
+                <Picker ItemsSource="{Binding CurrencyList}" SelectedItem="{Binding SelectedCurrency}" VerticalOptions="Center"/>
+            </HorizontalStackLayout>
 
-        <HorizontalStackLayout Grid.Row="6">
-            <ImageButton Source="icon_snap.png" Command="{Binding SnapPhotoCommand}" HeightRequest="100" WidthRequest="90"/>
+            <Grid Grid.Row="6" ColumnDefinitions="Auto, *">
+                <ImageButton Source="icon_snap.png" Command="{Binding SnapPhotoCommand}" HeightRequest="100" WidthRequest="90"/>
+                <CollectionView Grid.Column="1" ItemsLayout="HorizontalList" ItemsSource="{Binding ImageList}" HorizontalScrollBarVisibility="Always">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="{x:Type model:Image}">
+                            <Grid>
+                                <Image HeightRequest="150" WidthRequest="90" Source="{Binding ImageBytes,Converter={x:StaticResource byteArrayToImageSourceConverter}}"/>
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
 
-            <Image Source="{Binding Image, Converter={x:StaticResource byteArrayToImageSourceConverter}}" HeightRequest="150" WidthRequest="150"/>
-        </HorizontalStackLayout>
+                <!--<Image  Source="{Binding Image, Converter={x:StaticResource byteArrayToImageSourceConverter}}" HeightRequest="150" WidthRequest="150"/>-->
+            </Grid>
 
-        <Button Text="Add" VerticalOptions="CenterAndExpand" Grid.Row="8" Command="{Binding SaveItemCommand}"/>
-        
-    </Grid>
+            <Button Text="Add" VerticalOptions="CenterAndExpand" Grid.Row="8" Command="{Binding SaveItemCommand}"/>
+
+        </Grid>
+    </ScrollView>
 </ContentPage>
