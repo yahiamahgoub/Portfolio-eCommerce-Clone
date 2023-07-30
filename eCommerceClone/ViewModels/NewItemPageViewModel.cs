@@ -2,14 +2,9 @@
 using CommunityToolkit.Mvvm.Input;
 using DataLib.Models;
 using eCommerceClone.Service;
-using Microsoft.Maui.Controls;
+using eCommerceClone.Views;
 using MvvmHelpers;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Image = DataLib.Models.Image;
 
 namespace eCommerceClone.ViewModels
 {
@@ -26,21 +21,18 @@ namespace eCommerceClone.ViewModels
 			this.categoryService = categoryService;
 			this.addressService = addressService;
 			this.userService = userService;
-			this.itemService = itemService;
-
-			ImageByteList = new ObservableRangeCollection<byte[]>();
-			//ImageList = new ObservableRangeCollection<Microsoft.Maui.Controls.Image>();
+			this.itemService = itemService;			
 		}
 
 		[ObservableProperty]
-		User user;
+		User currentUser;
 
 		public ObservableRangeCollection<Address> AddressList { get; set; } = new ObservableRangeCollection<Address>();
 
-		[ObservableProperty]
+		
 		//[NotifyPropertyChangedFor(nameof(ImageList))]
-		ObservableRangeCollection<byte[]> imageByteList;
-	
+		public ObservableRangeCollection<Image> ImageList { get; set; } = new ObservableRangeCollection<Image>();
+
 
 		[ObservableProperty]
 		byte[] image;
@@ -106,7 +98,7 @@ namespace eCommerceClone.ViewModels
 		[RelayCommand]
 		public async Task LoadAddressesForUser()
 		{			
-			var initList = await addressService.GetAddressesForUser(User.UserId);
+			var initList = await addressService.GetAddressesForUser(CurrentUser.UserId);
 			AddressList.Clear();
 			AddressList.AddRange(initList);
 			SelectedAddress = AddressList.FirstOrDefault();
@@ -116,7 +108,7 @@ namespace eCommerceClone.ViewModels
 		public async Task LoadUser()
 		{
 			//change later to load from login form			
-			User = await userService.GetUserAsync(1);
+			CurrentUser = await userService.GetUserAsync(1);
 		}
 
 		[RelayCommand]
@@ -160,7 +152,7 @@ namespace eCommerceClone.ViewModels
 					{
 						fs.Read(data, 0, data.Length);
 					}
-					ImageByteList.Add(data);
+					ImageList.Add(DataLib.Models.Image.FromByteArray(data));
 					Image = data;
 
 					// Delete the temporary file
@@ -199,25 +191,25 @@ namespace eCommerceClone.ViewModels
 				ItemPrice = ItemPrice,
 				Currency = SelectedCurrency,
 				Status = Status.Available,
-				UserId = User.UserId,				
+				UserId = CurrentUser.UserId,				
 				AddressId = SelectedAddress.AddressId,
 				CategoryId = SelectedCategory.CategoryId,
 				ImageList = GetImages()
 			};
+			
 			await itemService.AddItemAsync(itemForAdd);
-		}
+			
+			await Shell.Current.GoToAsync($"//{nameof(ListingsPage)}");
+		}		
 
-		List<DataLib.Models.Image> GetImages()
+		List<Image> GetImages()
 		{
-			if (ImageByteList.Count == 0)
-				return new List<DataLib.Models.Image>();
-
-			if (ImageByteList.Count == 1)
-				return new List<DataLib.Models.Image>() { new DataLib.Models.Image { ImageBytes = Image, IsMainImage = true } };
-
-			var list = ImageByteList.Select(imgByte => new DataLib.Models.Image { ImageBytes = imgByte }).ToList();
-			list.FirstOrDefault().IsMainImage = true;
-			return list;						
+			var firstImage = ImageList.FirstOrDefault();
+			
+			if(firstImage is not null)
+				firstImage.IsMainImage = true;
+			
+			return ImageList.ToList();
 		}
 	}
 }
