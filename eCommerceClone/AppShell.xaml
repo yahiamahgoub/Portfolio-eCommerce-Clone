@@ -15,9 +15,9 @@
             <ShellContent Icon="icon_listings.png" 
                           Title="{Static localization:AppResources.ListingPageTitle}" 
                           ContentTemplate="{DataTemplate views:ListingsPage}" 
-                          Route="MainPage" />
+                          Route="ListingsPage" />
         </Tab>
-        
+
         <Tab Title="MyPage" Icon="icon_user.png">
             <ShellContent Icon="icon_user.png"
             Title="New Page"

@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using DataLib.Models;
 using eCommerceClone.Service;
+using eCommerceClone.Views;
 using MvvmHelpers;
 
 namespace eCommerceClone.ViewModels
@@ -25,9 +26,9 @@ namespace eCommerceClone.ViewModels
 		async Task NavigateToDetailPage()
 		{
 			if(SelectedItem is not null)
-				await Shell.Current.GoToAsync($"///MainPage/ItemDetailsPage?ItemId={SelectedItem.ItemId}");
+				await Shell.Current.GoToAsync($"///{nameof(ListingsPage)}/{nameof(ItemDetailsPage)}?ItemId={SelectedItem.ItemId}");
 			else
-				await Shell.Current.GoToAsync($"//MainPage/ItemDetailsPage?ItemId=1");
+				await Shell.Current.GoToAsync($"//{nameof(ListingsPage)}/{nameof(ItemDetailsPage)}?ItemId=1");
 		}
 
 
