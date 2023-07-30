@@ -64,7 +64,9 @@ namespace DataLib.DataStorage
 		//			  new Category { CategoryId = 2, Name = "Cars" },
 		//			  new Category { CategoryId = 3, Name = "TVs" },
 		//			  new Category { CategoryId = 4, Name = "Personal Computers" },
-		//			  new Category { CategoryId = 5, Name = "Laptops" });
+		//			  new Category { CategoryId = 5, Name = "Laptops" },
+		//			  new Category { CategoryId = 6, Name = "Camping & Hiking" }
+		//			  );
 
 		//	modelBuilder.Entity<Country>().HasData(
 		//			  new Country { CountryId = 1, CountryName = "Sweden" },

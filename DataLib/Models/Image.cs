@@ -20,5 +20,10 @@ namespace DataLib.Models
         // Navigation properties		
         //public Item Item { get; set; }
         public int ItemId { get; set; }
+
+        public static Image FromByteArray(byte[] imageBytes)
+        {
+            return new Image { ImageBytes = imageBytes};
+		}
     }
 }
