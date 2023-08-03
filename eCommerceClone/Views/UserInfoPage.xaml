@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:eCommerceClone.ViewModels"
+             x:Class="eCommerceClone.Views.UserInfoPage"
+             x:DataType="vm:UserInfoPageViewModel"
+             Title="User Info Page">
+    <VerticalStackLayout>
+        
+        <Label Text="FirstName"/>
+        <Entry Text="{Binding User.FirstName}"/>
+        
+        <Label Text="Last Name"/>
+        <Entry Text="{Binding User.LastName}"/>
+        
+        <Label Text="Phone Number"/>
+        <Entry Text="{Binding User.PhoneNumber}"/>
+
+
+        <Label Text="Email"/>
+        <Entry Text="{Binding User.Email}"/>
+
+        <Label Text="User Name"/>
+        <Entry Text="{Binding User.UserName}"/>
+        
+        <Label Text="password"/>
+        <Entry Text="{Binding User.Password}"/>
+
+        <Label Text="Profile Image"/>
+        <Image Source="{Binding User.ProfileImage}"/>
+    </VerticalStackLayout>
+</ContentPage>
