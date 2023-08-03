@@ -4,6 +4,7 @@ using DataLib.DataStorage;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataLib.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230730215033_changes")]
+    partial class changes
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -365,11 +368,16 @@ namespace DataLib.Migrations
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
+                    b.Property<int?>("UserId")
+                        .HasColumnType("int");
+
                     b.HasKey("ItemId");
 
                     b.HasIndex("AddressId");
 
                     b.HasIndex("CategoryId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Items");
 
@@ -430,42 +438,42 @@ namespace DataLib.Migrations
                         new
                         {
                             ItemListId = 1,
-                            ItemListType = 1,
+                            ItemListType = 2,
                             ListName = "ForSaleByUser",
                             UserId = 1
                         },
                         new
                         {
                             ItemListId = 2,
-                            ItemListType = 0,
+                            ItemListType = 2,
                             ListName = "FavoriteByUser",
                             UserId = 1
                         },
                         new
                         {
                             ItemListId = 3,
-                            ItemListType = 1,
+                            ItemListType = 2,
                             ListName = "ForSaleByUser",
                             UserId = 2
                         },
                         new
                         {
                             ItemListId = 4,
-                            ItemListType = 0,
+                            ItemListType = 2,
                             ListName = "FavoriteByUser",
                             UserId = 2
                         },
                         new
                         {
                             ItemListId = 5,
-                            ItemListType = 1,
+                            ItemListType = 2,
                             ListName = "ForSaleByUser",
                             UserId = 3
                         },
                         new
                         {
                             ItemListId = 6,
-                            ItemListType = 0,
+                            ItemListType = 2,
                             ListName = "FavoriteByUser",
                             UserId = 3
                         });
@@ -498,29 +506,6 @@ namespace DataLib.Migrations
                         });
                 });
 
-            modelBuilder.Entity("DataLib.Models.ProfileImage", b =>
-                {
-                    b.Property<int>("UserImageId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserImageId"));
-
-                    b.Property<byte[]>("ImageBytes")
-                        .IsRequired()
-                        .HasColumnType("varbinary(max)");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("UserImageId");
-
-                    b.HasIndex("UserId")
-                        .IsUnique();
-
-                    b.ToTable("ProfileImage");
-                });
-
             modelBuilder.Entity("DataLib.Models.User", b =>
                 {
                     b.Property<int>("UserId")
@@ -529,27 +514,11 @@ namespace DataLib.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserId"));
 
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Password")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PhoneNumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UserName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -561,32 +530,20 @@ namespace DataLib.Migrations
                         new
                         {
                             UserId = 1,
-                            Email = "Dani@gmail.com",
-                            FirstName = "Daniel",
-                            LastName = "Clark",
-                            Password = "pass",
-                            PhoneNumber = "0123456789",
-                            UserName = "danielclark"
+                            Name = "Daniel",
+                            PhoneNumber = "0123456789"
                         },
                         new
                         {
                             UserId = 2,
-                            Email = "joanna@gmail.com",
-                            FirstName = "Joanna",
-                            LastName = "Janiak",
-                            Password = "pass",
-                            PhoneNumber = "0123456789",
-                            UserName = "joanna janiak"
+                            Name = "Joanna",
+                            PhoneNumber = "0123456789"
                         },
                         new
                         {
                             UserId = 3,
-                            Email = "lelland@gmail.com",
-                            FirstName = "Lelland",
-                            LastName = "Turnbull",
-                            Password = "pass",
-                            PhoneNumber = "0123456789",
-                            UserName = "lelland"
+                            Name = "Lelland",
+                            PhoneNumber = "0123456789"
                         });
                 });
 
@@ -628,18 +585,20 @@ namespace DataLib.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("DataLib.Models.User", null)
+                        .WithMany("Items")
+                        .HasForeignKey("UserId");
+
                     b.Navigation("Address");
                 });
 
             modelBuilder.Entity("DataLib.Models.ItemList", b =>
                 {
-                    b.HasOne("DataLib.Models.User", "User")
+                    b.HasOne("DataLib.Models.User", null)
                         .WithMany("ItemLists")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("DataLib.Models.ItemListToItemJoin", b =>
@@ -659,17 +618,6 @@ namespace DataLib.Migrations
                     b.Navigation("Item");
 
                     b.Navigation("ItemList");
-                });
-
-            modelBuilder.Entity("DataLib.Models.ProfileImage", b =>
-                {
-                    b.HasOne("DataLib.Models.User", "User")
-                        .WithOne("ProfileImage")
-                        .HasForeignKey("DataLib.Models.ProfileImage", "UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("DataLib.Models.Category", b =>
@@ -695,7 +643,7 @@ namespace DataLib.Migrations
 
                     b.Navigation("ItemLists");
 
-                    b.Navigation("ProfileImage");
+                    b.Navigation("Items");
                 });
 #pragma warning restore 612, 618
         }

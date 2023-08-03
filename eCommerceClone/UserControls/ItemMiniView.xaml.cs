@@ -1,4 +1,4 @@
-using eCommerceClone.ViewModels;
+using System.Windows.Input;
 
 namespace eCommerceClone.UserControls;
 
@@ -9,7 +9,7 @@ public partial class ItemMiniView : ContentView
 		InitializeComponent();	
 	}
 
-	public string ItemName
+	public string ItemName	
 	{
 		get { return (string)GetValue(ItemNameProperty); }
 		set { SetValue(ItemNameProperty, value); }
@@ -55,6 +55,17 @@ public partial class ItemMiniView : ContentView
 	public static readonly BindableProperty IsItemSavedProperty =
 		BindableProperty.CreateAttached("IsItemSaved", typeof(bool), typeof(ItemMiniView), false);
 
+	public ICommand FavCommand
+	{
+		get => (ICommand)GetValue(FavCommandProperty);
+		set => SetValue(FavCommandProperty, value);
+	}
+
+	public static readonly BindableProperty FavCommandProperty =
+			   BindableProperty.Create(nameof(FavCommand), typeof(ICommand), typeof(ItemMiniView));
+
+
+
 	public byte[] MainImage
 	{
 		get { return (byte[])GetValue(MainImageProperty); }
@@ -71,5 +82,5 @@ public partial class ItemMiniView : ContentView
 	private void ImageButton_Clicked(object sender, EventArgs e)
 	{
 		IsItemSaved = !IsItemSaved;
-	}	
+	}
 }

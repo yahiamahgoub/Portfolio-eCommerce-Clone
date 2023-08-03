@@ -26,11 +26,18 @@ public static class MauiProgram
 #endif
 		builder.Services.AddSingleton<ListingsPage>();
 		builder.Services.AddSingleton<ListingsPageViewModel>();
-		builder.Services.AddSingleton<NewItemPage>();
+		builder.Services.AddScoped<NewItemPage>();
 		builder.Services.AddScoped<NewItemPageViewModel>();
+
+		builder.Services.AddScoped<UserPage>();
+		builder.Services.AddScoped<UserPageViewModel>();
 
 		builder.Services.AddScoped<ItemDetailsPage>();
 		builder.Services.AddScoped<ItemDetailsPageViewModel>();
+
+		builder.Services.AddScoped<UserInfoPage>();
+		builder.Services.AddScoped<UserInfoPageViewModel>();
+
 
 		builder.Services.AddSingleton<IItemService, ServiceClient>();
 		builder.Services.AddSingleton<IUserService, ServiceClient>();

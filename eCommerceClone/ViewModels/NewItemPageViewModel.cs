@@ -25,8 +25,10 @@ namespace eCommerceClone.ViewModels
 		}
 
 		[ObservableProperty]
-		User currentUser;
+		UserForRead currentUser;
 
+		[ObservableProperty]
+		Address selectedAddress;
 		public ObservableRangeCollection<Address> AddressList { get; set; } = new ObservableRangeCollection<Address>();
 
 		
@@ -37,14 +39,8 @@ namespace eCommerceClone.ViewModels
 		[ObservableProperty]
 		byte[] image;
 
-		[ObservableProperty]
-		Currency selectedCurrency;
-
-		public IEnumerable<Currency> CurrencyList { get; set; } = Enum.GetValues(typeof(Currency)) as Currency[];
-
-		[ObservableProperty]
-		Address selectedAddress;
-
+		
+		public IEnumerable<Currency> CurrencyList { get; set; } = Enum.GetValues(typeof(Currency)) as Currency[];		
 		public ObservableRangeCollection<Category> Categories { get; set; } = new ObservableRangeCollection<Category>();
 		
 		[ObservableProperty]
@@ -58,6 +54,7 @@ namespace eCommerceClone.ViewModels
 		string phoneNumber;
 		[ObservableProperty]
 		string address;
+
 		[ObservableProperty]
 		string itemName;
 		[ObservableProperty]
@@ -65,12 +62,10 @@ namespace eCommerceClone.ViewModels
 		[ObservableProperty]
 		decimal itemPrice;
 		[ObservableProperty]
-		IEnumerable<byte[]> itemImages;
+		Currency selectedCurrency;
 		[ObservableProperty]
-		byte[] mainImage;
-
-
-
+		IEnumerable<byte[]> itemImages;
+		
 		[RelayCommand]
 		public async Task Load()
 		{
@@ -152,8 +147,7 @@ namespace eCommerceClone.ViewModels
 					{
 						fs.Read(data, 0, data.Length);
 					}
-					ImageList.Add(DataLib.Models.Image.FromByteArray(data));
-					Image = data;
+					ImageList.Add(DataLib.Models.Image.FromByteArray(data));				
 
 					// Delete the temporary file
 					//fileInfo.Delete();

@@ -9,13 +9,13 @@ namespace DataLib.Repositories
         protected readonly AppDbContext appDbContext;
         public GenericRepository(AppDbContext _appDbContext) => appDbContext = _appDbContext;
 
-        public async Task<IEnumerable<T>> GetAll() => await appDbContext.Set<T>().ToListAsync();		
+        public async Task<IEnumerable<T>> GetAllAsync() => await appDbContext.Set<T>().ToListAsync();		
 
-        public async Task<T?> GetById(int id) => await appDbContext.Set<T>().FindAsync(id);
+        public async Task<T?> GetByIdAsync(int id) => await appDbContext.Set<T>().FindAsync(id);
 
         public async Task AddAsync(T obj) => await appDbContext.Set<T>().AddAsync(obj);
 
-        public async Task<bool> ExistsAsync(int id) => await GetById(id) is not null ? true : false;
+        public async Task<bool> ExistsAsync(int id) => await GetByIdAsync(id) is not null ? true : false;
 
         public void Delete(T obj) => appDbContext.Set<T>().Remove(obj);
 

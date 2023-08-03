@@ -28,18 +28,21 @@ namespace DataLib.Models
 
         [Required(ErrorMessage = "You should provide a value for status")]
         public Status Status { get; set; }
-    }
+
+		public ICollection<ItemListToItemJoin> ItemListToItemJoin { get; set; } = new List<ItemListToItemJoin>();
+
+	}
 
 
-    public class Item : ItemBase
+	public class Item : ItemBase
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ItemId { get; set; }
 
-        // Navigation properties		
-        internal User User { get; set; }
-        public int UserId { get; set; }
+		// Navigation properties		
+		[NotMapped]
+		User User { get; set; }
         internal Category Category { get; set; }
         public int CategoryId { get; set; }
         public Address Address { get; set; }

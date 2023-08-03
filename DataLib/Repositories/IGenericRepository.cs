@@ -7,8 +7,8 @@ namespace DataLib.Repositories
         Task AddAsync(T obj);
         void Delete(T obj);
         Task<bool> ExistsAsync(int id);
-        Task<IEnumerable<T>> GetAll();
-        Task<T?> GetById(int id);
+        Task<IEnumerable<T>> GetAllAsync();
+        Task<T?> GetByIdAsync(int id);
         Task<bool> SaveChangesAsync();		
 	}
 }

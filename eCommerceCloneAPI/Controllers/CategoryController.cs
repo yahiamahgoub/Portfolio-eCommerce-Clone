@@ -16,9 +16,9 @@ namespace eCommerceClone.Controllers
 		}
 
 		[HttpGet]
-		public async Task<IEnumerable<Category>> GetCategories() => await repository.GetAll();
+		public async Task<IEnumerable<Category>> GetCategories() => await repository.GetAllAsync();
 
 		[HttpGet("{categoryId}")]
-		public async Task<Category> GetCategory(int categoryId) => await repository.GetById(categoryId);
+		public async Task<Category> GetCategory(int categoryId) => await repository.GetByIdAsync(categoryId);
 	}
 }

@@ -22,7 +22,7 @@
                                     DisplayMemberName="ItemName">
             <userCtrl:ItemSearchHandler.ItemTemplate>
                 <DataTemplate x:DataType="{x:Type data:ItemMini}">
-                    <Grid Padding="10" ColumnDefinitions="0.15*,0.85*" ColumnSpacing="10">        
+                    <Grid Padding="10" ColumnDefinitions="0.15*,0.85*" ColumnSpacing="10">
                         <Image Source="{Binding MainImage.ImageBytes,Converter={x:StaticResource byteToImageConverter}}"
                                HeightRequest="40"
                                WidthRequest="40"/>
@@ -34,13 +34,6 @@
                 </DataTemplate>
             </userCtrl:ItemSearchHandler.ItemTemplate>
         </userCtrl:ItemSearchHandler>
-
-        <!--<userCtrl:ItemSearchHandler ItemsMini="{Binding ItemsMini}"
-                                    Placeholder="Enter item name" 
-                                    ShowsResults="True" 
-                                    DisplayMemberName="ItemName">
-        </userCtrl:ItemSearchHandler>-->
-        
     </Shell.SearchHandler>
     
     <ScrollView>
@@ -48,7 +41,7 @@
                         SelectionMode="Single" SelectionChangedCommand="{Binding NavigateToDetailPageCommand}">
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="{x:Type data:ItemMini}">
-                    <userCtrl:ItemMiniView ItemName="{Binding ItemName}" ItemDescription="{Binding ItemDescription}" 
+                    <userCtrl:ItemMiniView FavCommand="{Binding FavItemCommand}" ItemName="{Binding ItemName}" ItemDescription="{Binding ItemDescription}" 
                                            ItemPrice="{Binding ItemPrice}" MainImage="{Binding MainImage.ImageBytes}"/>
                 </DataTemplate>
             </CollectionView.ItemTemplate>

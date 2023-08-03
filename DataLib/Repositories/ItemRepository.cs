@@ -14,23 +14,70 @@ namespace DataLib.Repositories
 		{
 			this.mapper = mapper;
 		}
-
-		//public async Task<IEnumerable<ItemMini>> GetItemsAsync() => appDbContext.Items.Include(item => item.ImageList);
-
+		
 		public async Task<IEnumerable<ItemMini>> GetItemsMiniAsync()
 		{			
-			//var items = appDbContext.Items.Include(item => item.ImageList).Where(item => item.ImageList.Any(img => img.IsMainImage));
-			var items = appDbContext.Items.Include(item => item.ImageList).Where(item => item.ImageList.Count == 0 || item.ImageList.Any(img => img.IsMainImage));
+			var items = await appDbContext.Items
+				.Include(item => item.ImageList)
+				//.Include(item => item.ItemListToItemJoin)
+				.Where(item => item.ImageList.Count == 0 || item.ImageList.Any(img => img.IsMainImage))
+				//.Where(item => item.ItemListToItemJoin.All(list => list.ItemList.ItemListType == ItemListType.ForSaleByUser))
+				.ToListAsync();
 			return mapper.Map<IEnumerable<Item>, IEnumerable<ItemMini>>(items);
 		}
 
+		public async Task<ItemList?> GetForSaleListForUserAsync(int userId) => 
+			await appDbContext.ItemLists.SingleOrDefaultAsync(item => item.UserId == userId && item.ItemListType == ItemListType.ForSaleByUser);
 
-		public async Task<Item?> GetItemFullAsync(int itemId) => 
-					await appDbContext.Items.Include(item => item.ImageList)
+		public async Task<ItemList?> GetFavListForUserAsync(int userId) =>
+			await appDbContext.ItemLists.SingleOrDefaultAsync(item => item.UserId == userId && item.ItemListType == ItemListType.FavoriteByUser);
+
+		public async Task<IEnumerable<Item>> GetFavItemsListForUserAsync(int userId)
+		{
+			var itemList = await appDbContext.ItemLists.SingleOrDefaultAsync(item => item.UserId == userId && item.ItemListType == ItemListType.FavoriteByUser);
+			return await GetListItemsAsync(itemList.ItemListId);
+		}
+
+		public async Task<IEnumerable<Item>> GetForSaleItemsListForUserAsync(int userId)
+		{
+			var itemList = await appDbContext.ItemLists.SingleOrDefaultAsync(item => item.UserId == userId && item.ItemListType == ItemListType.ForSaleByUser);
+			return await GetListItemsAsync(itemList.ItemListId);
+		}
+
+		public async Task<IEnumerable<Item>> GetListItemsAsync(int itemListId) =>
+			await appDbContext.Items.Include(item => item.ImageList)
+			.Where(item => item.ImageList.Count == 0 || item.ImageList.Any(img => img.IsMainImage))
+			.Where(item => item.ItemListToItemJoin.Any(joinedItem => joinedItem.ItemListId == itemListId)).ToListAsync();		
+
+		//public async Task AddItemToFavListAsync(int itemId, int userId)
+		//{
+		//	await 
+		//	var items = appDbContext.Items.Include(item => item.ImageList).Where(item => item.ImageList.Count == 0 || item.ImageList.Any(img => img.IsMainImage));
+		//	return mapper.Map<IEnumerable<Item>, IEnumerable<ItemMini>>(items);
+		//}
+
+		public async Task<Item?> GetItemFullAsync(int itemId, int? userId) => 
+			//go back to poster?		
+			await appDbContext.Items.Include(item => item.ImageList)
+					.Where(item => item.ItemId == itemId &&
+						item.ItemListToItemJoin.All(
+							itemListJoin => itemListJoin.ItemList.ItemListType == ItemListType.ForSaleByUser // include the list of the poster plus
+							|| itemListJoin.ItemList.User.UserId == userId)) // the current user's lists which contain this item
 					.Include(item => item.Address)
-					.FirstOrDefaultAsync(item => item.ItemId == itemId);
-		
+					//.Include(item => item.ItemListToItemJoin.Select(itemJoin => itemJoin.ItemList.User))
+					.Include(itemListJoin => itemListJoin.ItemListToItemJoin)
+					.ThenInclude(itemList => itemList.ItemList)
+					.ThenInclude(itemList => itemList.User)		
+					//.FirstOrDefaultAsync(item => item.ItemId == itemId);
+					.FirstOrDefaultAsync();
 
+		//public async Task<Item?> GetItemFullAsync(int itemId)
+		//{
+
+		//	await appDbContext.Items.Include(item => item.ImageList)
+		//	.Include(item => item.Address)
+		//	.FirstOrDefaultAsync(item => item.ItemId == itemId);
+		//}
 
 		public async Task<IEnumerable<Item>> GetItemsAsync() => appDbContext.Items.Include(item => item.ImageList);		
 

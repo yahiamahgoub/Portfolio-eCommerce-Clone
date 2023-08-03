@@ -9,7 +9,7 @@ namespace eCommerceClone.ViewModels
 {
 	public partial class ListingsPageViewModel : CommunityToolkit.Mvvm.ComponentModel.ObservableObject
     {
-		private readonly IItemService dataService;
+		private readonly IItemService itemService;
 
 		public ObservableRangeCollection<ItemMini> ItemsMini { get; set; } = new ObservableRangeCollection<ItemMini>();
 
@@ -18,7 +18,7 @@ namespace eCommerceClone.ViewModels
 
 		public ListingsPageViewModel(IItemService _dataService)
         {
-			dataService = _dataService;			
+			itemService = _dataService;			
 
 		}
 
@@ -29,6 +29,21 @@ namespace eCommerceClone.ViewModels
 				await Shell.Current.GoToAsync($"///{nameof(ListingsPage)}/{nameof(ItemDetailsPage)}?ItemId={SelectedItem.ItemId}");
 			else
 				await Shell.Current.GoToAsync($"//{nameof(ListingsPage)}/{nameof(ItemDetailsPage)}?ItemId=1");
+		}
+
+		[RelayCommand]
+		async Task FavItem()
+		{
+			var itemMini = SelectedItem as ItemMini;
+			
+			if( itemMini != null )
+			{
+				var favList = await itemService.GetFavListAsync(userId: 1);
+
+				var itemListToItemJoin = new ItemListToItemJoin { ItemId = itemMini.ItemId, ItemListId = favList.ItemListId };
+
+				var result = await itemService.AddItemToFavListAsync(userId: 1, itemMini.ItemId, itemListToItemJoin);
+			}
 		}
 
 
@@ -47,9 +62,9 @@ namespace eCommerceClone.ViewModels
 
 			ItemsMini.Clear();
 
-			var coffees = await dataService.GetItemsMini();
+			var itemsMiniDTO = await itemService.GetItemsMiniAsync();
 
-			ItemsMini.AddRange(coffees);
+			ItemsMini.AddRange(itemsMiniDTO);
 			IsBusy = false;
 			//toaster?.MakeToast("Refreshed!");
 		}

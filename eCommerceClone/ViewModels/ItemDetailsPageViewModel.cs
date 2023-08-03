@@ -23,7 +23,7 @@ namespace eCommerceClone.ViewModels
         public int ItemId { get; set; }
 
         [ObservableProperty]
-		Item item;
+		Item currentItem;
 
 		[ObservableProperty]
 		User user;
@@ -34,9 +34,15 @@ namespace eCommerceClone.ViewModels
 		[RelayCommand]
 		async Task Load()
 		{
-			Item = await itemService.GetItem(ItemId);
-			User = await userService.GetUserAsync(Item.UserId);
-			Category = await categoryService.GetCategoryAsync(Item.CategoryId);
+			//should get from global store somehow
+			var currentUser = 1;
+
+			CurrentItem = await itemService.GetItemAsync(ItemId, currentUser);
+			//User = await userService.GetUserAsync(CurrentItem.userid);
+			User = CurrentItem.ItemListToItemJoin
+				.Single(itemListJoin => itemListJoin.ItemList.ItemListType == ItemListType.ForSaleByUser)
+				.ItemList.User;			
+			Category = await categoryService.GetCategoryAsync(CurrentItem.CategoryId);
 		}
 
 		[RelayCommand]

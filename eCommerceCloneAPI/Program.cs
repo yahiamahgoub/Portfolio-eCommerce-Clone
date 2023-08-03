@@ -16,6 +16,7 @@ namespace eCommerceClone
 			
 			builder.Services.AddScoped<IUserRepository, UserRepository>();
 			builder.Services.AddScoped<IItemRepository, ItemRepository>();
+			builder.Services.AddScoped<IItemListToItemJoinRepository, ItemListToItemJoinRepository>();
 		}
 	}
 
@@ -27,7 +28,20 @@ namespace eCommerceClone
 
 			// Add services to the container.
 
-			builder.Services.AddControllers();
+			//public static IServiceCollection AddMiddleware(this IServiceCollection services)
+			//{
+			//	services.AddMvc().AddJsonOptions(options =>
+			//	{
+			//		options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+			//	});
+
+			//	return services;
+			//}
+
+			builder.Services
+				.AddControllers()
+				.AddJsonOptions( options => options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles);
+
 			// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 			builder.Services.AddEndpointsApiExplorer();
 			builder.Services.AddSwaggerGen();

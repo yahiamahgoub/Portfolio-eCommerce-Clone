@@ -1,18 +1,30 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:userCtrl="clr-namespace:eCommerceClone.UserControls"
+             xmlns:vm="clr-namespace:eCommerceClone.ViewModels"
+             xmlns:model="clr-namespace:DataLib.Models;assembly=DataLib"
              x:Class="eCommerceClone.Views.UserPage"
-             Title="UserAdPage">
-    <Grid ColumnDefinitions="*,*" RowDefinitions="Auto, Auto" Padding="20" RowSpacing="30">
+             x:DataType="vm:UserPageViewModel"
+             Title="My Page">
 
-        <HorizontalStackLayout Grid.ColumnSpan="2">
-            <Button Text="Your favorites" Margin="0,0,20,0" CornerRadius="30"/>
-            <Button Text="Your Account" CornerRadius="30"/>
-        </HorizontalStackLayout>
-        
-        
-        <Frame Grid.Row="1">
-                
-        </Frame>
+    <Grid RowDefinitions=".15*,.85*">
+
+        <Grid ColumnDefinitions="*,*,auto" Padding="20" ColumnSpacing="30">
+            <Button Grid.Column="0" Text="Favorites" CornerRadius="30" Command="{Binding LoadFavListCommand}"/>
+            <Button Grid.Column="1" Text="For Sale" CornerRadius="30" Command="{Binding LoadForSaleListCommand}"/>
+            <ImageButton Grid.Column="2" CornerRadius="30" HeightRequest="50" WidthRequest="50" Source="icon_account.png"
+                         Command="{Binding NavigateToUserInfoPageCommand}"/>
+        </Grid>
+
+        <CollectionView Grid.Row="1" x:Name="MyCollectionView" ItemsSource="{Binding ItemsMini}" SelectedItem="{Binding SelectedItem}" 
+                        SelectionMode="Single" SelectionChangedCommand="{Binding NavigateToDetailPageCommand}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="{x:Type model:ItemMini}">
+                    <userCtrl:ItemMiniView ItemName="{Binding ItemName}" ItemDescription="{Binding ItemDescription}" 
+                                           ItemPrice="{Binding ItemPrice}" MainImage="{Binding MainImage.ImageBytes}"/>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
     </Grid>
 </ContentPage>

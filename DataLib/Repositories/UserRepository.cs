@@ -7,7 +7,7 @@ using System.Runtime.Intrinsics.X86;
 
 namespace DataLib.Repositories
 {
-	public class UserRepository : GenericRepository<User>, IUserRepository
+	public class UserRepository : GenericRepository<User>, IUserRepository, IGenericRepository<User>
 	{
 		public UserRepository(AppDbContext _appDbContext) : base(_appDbContext)
 		{
@@ -19,24 +19,23 @@ namespace DataLib.Repositories
 		public async Task<Address?> GetAddressForUserAsync(int userId, int addressId) =>
 			await appDbContext.Addresses.Include(address => address.Country).SingleOrDefaultAsync(address => address.UserId == userId && address.AddressId == addressId);
 
-
 		public async Task AddAddressForUserAsync(int userId, Address Address)
 		{
-			var user = await GetById(userId);
+			var user = await GetByIdAsync(userId);
 			if (user is not null)
 				user.Addresses.Add(Address);
 		}
 
 		public async Task DeleteAddressForUserAsync(int userId, Address Address)
 		{
-			var user = await GetById(userId);
+			var user = await GetByIdAsync(userId);
 			if (user is not null)
 				user.Addresses.Remove(Address);
 		}
 
 		public async Task<User?> GetById(int userId, bool IncludeAddressList)
 		=>
-			!IncludeAddressList? await GetById(userId) : 
+			!IncludeAddressList? await GetByIdAsync(userId) : 
 			await appDbContext.Users
 			.Include(user => user.Addresses)
 			.ThenInclude(Address => Address.Country)

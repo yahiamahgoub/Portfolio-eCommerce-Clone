@@ -24,7 +24,7 @@
                     <Frame CornerRadius="100" IsClippedToBounds="True" HeightRequest="100" Padding="0" Grid.RowSpan="2" Grid.Column="0" WidthRequest="100">
                         <Image Source="icon_femaleseller.jpg" HorizontalOptions="Center" VerticalOptions="Center"/>
                     </Frame>
-                    <Label Grid.Column="1" Text="{Binding CurrentUser.Name}" Margin="10,0,5,0" FontSize="Medium" FontAttributes="Bold"/>
+                    <Label Grid.Column="1" Text="{Binding CurrentUser.FullName}" Margin="10,0,5,0" FontSize="Medium" FontAttributes="Bold"/>
                     <HorizontalStackLayout Grid.Column="1" Grid.Row="1">
                         <Image Source="icon_phone.png" WidthRequest="30" Margin="0,0,10,0"/>
                         <Label Text="{Binding CurrentUser.PhoneNumber}" FontSize="Medium"/>

@@ -17,9 +17,9 @@
     <!--Text="{local:Translate HelloWorld}"-->
 
 
-    <Grid ColumnDefinitions="Auto, *, Auto" RowDefinitions="Auto, *, Auto" Padding="15, 5, 15, 0">
+    <Grid ColumnDefinitions="Auto, *, Auto" ColumnSpacing="10" RowDefinitions="Auto, *, Auto" Padding="15, 5, 15, 0">
 
-        <Label Grid.Row="0" Grid.Column="0" Text="{Binding Source={RelativeSource Mode=FindAncestor, AncestorType={x:Type control:ItemMiniView}}, Path=ItemName}"
+        <Label Grid.Row="0" Grid.ColumnSpan="3" Text="{Binding Source={RelativeSource Mode=FindAncestor, AncestorType={x:Type control:ItemMiniView}}, Path=ItemName}"
             VerticalOptions="Start" 
             HorizontalOptions="Start" Margin="10,0,0,0" FontAttributes="Bold"/>
 
@@ -35,7 +35,7 @@
                 <Label Text="SEK" FontSize="Small" Margin="5,0,0,0" />
             </HorizontalStackLayout>
 
-            <Label Text="{Binding ItemDescription,Source={RelativeSource Mode=FindAncestor,AncestorType={x:Type control:ItemMiniView}}}"/>
+            <Label LineHeight="2" LineBreakMode="TailTruncation" Text="{Binding ItemDescription,Source={RelativeSource Mode=FindAncestor,AncestorType={x:Type control:ItemMiniView}}}"/>
             
         </VerticalStackLayout>
 
@@ -43,6 +43,6 @@
                HorizontalOptions="End" VerticalOptions="End" Margin="0, 0, 10, 0"/>
 
         <ImageButton Source="{Binding IsItemSaved, Converter={x:StaticResource boolToImageConverter}, Source={RelativeSource Mode=FindAncestor,AncestorType={x:Type control:ItemMiniView}}}" Grid.Row="2" Grid.Column="2"
-              HeightRequest="20" WidthRequest="20" Clicked="ImageButton_Clicked"/>
+              HeightRequest="30" WidthRequest="30" Command="{Binding FavCommand,Source={RelativeSource Mode=FindAncestor,AncestorType={x:Type control:ItemMiniView}}}" Clicked="ImageButton_Clicked"/>
     </Grid>
 </ContentView>

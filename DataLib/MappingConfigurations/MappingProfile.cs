@@ -12,8 +12,11 @@ namespace DataLib.MappingConfigurations
             CreateMap<Item, ItemForAdd>().ReverseMap();
             CreateMap<Item, ItemForUpdate>().ReverseMap();
 			
-			CreateMap<User, UserForRead>().ReverseMap();
-
+			CreateMap<User, UserForRead>().ReverseMap();			
+			CreateMap<User, UserForAdd>().ReverseMap();			
+			CreateMap<User, UserForUpdate>().ReverseMap();			
+			CreateMap<UserForRead, UserForUpdate>().ReverseMap();
+			CreateMap<UserForRead, UserForAdd>().ReverseMap();			
 
 
             // Mapping when property names are different

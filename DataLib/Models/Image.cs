@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace DataLib.Models
 {
-    public class Image
+	public class Image
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

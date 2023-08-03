@@ -4,6 +4,7 @@ using DataLib.DataStorage;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataLib.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230802230735_rename name to firstname user table")]
+    partial class renamenametofirstnameusertable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -529,27 +532,11 @@ namespace DataLib.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserId"));
 
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("FirstName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("PhoneNumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UserName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -561,32 +548,20 @@ namespace DataLib.Migrations
                         new
                         {
                             UserId = 1,
-                            Email = "Dani@gmail.com",
                             FirstName = "Daniel",
-                            LastName = "Clark",
-                            Password = "pass",
-                            PhoneNumber = "0123456789",
-                            UserName = "danielclark"
+                            PhoneNumber = "0123456789"
                         },
                         new
                         {
                             UserId = 2,
-                            Email = "joanna@gmail.com",
                             FirstName = "Joanna",
-                            LastName = "Janiak",
-                            Password = "pass",
-                            PhoneNumber = "0123456789",
-                            UserName = "joanna janiak"
+                            PhoneNumber = "0123456789"
                         },
                         new
                         {
                             UserId = 3,
-                            Email = "lelland@gmail.com",
                             FirstName = "Lelland",
-                            LastName = "Turnbull",
-                            Password = "pass",
-                            PhoneNumber = "0123456789",
-                            UserName = "lelland"
+                            PhoneNumber = "0123456789"
                         });
                 });
 
