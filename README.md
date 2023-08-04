@@ -1,4 +1,4 @@
-MAUI Sample App
+MAUI Sample App (A work in progress!)
 A MAUI eCommerce app for C2C trading. I'm building in my journey to learn mobile developement with MAUI, MVVM pattern.
 
 Tools used
