@@ -1,15 +1,20 @@
 ﻿using Newtonsoft.Json;
+//using Org.Apache.Http.Client;
 using System.Text;
 
 namespace eCommerceClone.Service
 {
+
+	//restsharp!
+
 	public class RequestSender
 	{
 		private readonly HttpClient client;
 
-		public RequestSender()
+		public RequestSender(HttpClient httpClient)
 		{
-			client = new HttpClient { BaseAddress = new Uri($"{ServiceSettings.URL}/") };
+			this.client = httpClient;
+			//client = new HttpClient { BaseAddress = new Uri($"{ServiceSettings.URL}/") };
 		}
 
 		public async Task<TKey> GetResponse<TKey>(HttpMethod httpMethod, string path)
